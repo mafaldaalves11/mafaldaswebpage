@@ -2,17 +2,17 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <title>Bibliotecas escolares em Portugal</title>
+  <title>Portfólio de Mafalda Alves</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     :root {
-      --bg: #f7f7f8;
-      --text: #1f2933;
-      --muted: #6b7280;
-      --primary: #1f5673;
-      --accent: #f2a65a;
-      --card: #ffffff;
-      --border: #e5e7eb;
+      /* paleta castanha/terra */
+      --bg: #0e0806;
+      --accent1: #6f4c3e;   /* brown escuro [web:37] */
+      --accent2: #d8a76e;   /* whiskey / dourado quente [web:37] */
+      --accent3: #f2dfc0;   /* creme claro [web:37] */
+      --text: #f9f3ea;
+      --muted: #b49b86;
     }
 
     * {
@@ -23,1143 +23,620 @@
 
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: var(--bg);
+      background:
+        radial-gradient(circle at top left, #2a1910 0, #0e0806 45%, #050304 100%);
       color: var(--text);
-      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
 
-    a {
-      color: var(--primary);
-      text-decoration: none;
+    .noise {
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      opacity: 0.15;
+      background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+      mix-blend-mode: soft-light;
+      z-index: 0;
     }
 
-    a:hover {
-      text-decoration: underline;
+    .orb {
+      position: fixed;
+      width: 42vw;
+      height: 42vw;
+      border-radius: 50%;
+      filter: blur(70px);
+      opacity: 0.6;
+      z-index: 0;
+      mix-blend-mode: screen;
+    }
+    .orb.orb-1 { background: rgba(111,76,62,0.9); top: -10%; left: -5%; }
+    .orb.orb-2 { background: rgba(216,167,110,0.9); bottom: -20%; right: -10%; }
+    .orb.orb-3 { background: rgba(242,223,192,0.8); top: 40%; left: 50%; transform: translateX(-50%); }
+
+    .wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 20px 60px;
     }
 
     header {
-      background: #0b1f2a;
-      color: #fff;
-      padding: 1rem 1.5rem;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-
-    .nav {
-      max-width: 1100px;
-      margin: 0 auto;
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 40px;
     }
 
-    .nav-logo {
+    .logo {
       font-weight: 700;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.18em;
+      font-size: 14px;
       text-transform: uppercase;
-      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .nav-links {
+    .logo-mark {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 2px solid var(--accent2);
+      box-shadow: 0 0 14px rgba(216,167,110,0.8);
+    }
+
+    nav {
       display: flex;
-      gap: 1rem;
-      font-size: 0.9rem;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
     }
 
-    .nav-links a {
-      color: #e5e7eb;
+    nav button {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      padding: 6px 10px;
+      cursor: pointer;
+      position: relative;
+      transition: color 0.25s ease;
     }
 
-    .nav-links a:hover {
-      color: #fff;
+    nav button::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent1), var(--accent2), var(--accent3));
+      transition: width 0.25s ease;
+    }
+
+    nav button:hover {
+      color: var(--text);
+    }
+
+    nav button.active {
+      color: var(--accent3);
+    }
+
+    nav button.active::after {
+      width: 100%;
     }
 
     main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 1.5rem;
+      border-radius: 24px;
+      background: rgba(18, 9, 5, 0.92);
+      border: 1px solid rgba(140, 104, 72, 0.35);
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.02),
+        0 24px 80px rgba(0, 0, 0, 0.9);
+      padding: 32px 26px 28px;
+      backdrop-filter: blur(18px);
     }
 
-    /* Hero */
-
-    .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-      gap: 2rem;
-      align-items: center;
-      padding: 2.5rem 1.5rem;
-      background: linear-gradient(135deg, #0b1f2a 0%, #16384b 60%, #1f5673 100%);
-      border-radius: 1rem;
-      color: #f9fafb;
-      margin-bottom: 2.5rem;
-    }
-
-    .hero-kicker {
+    .tagline {
       text-transform: uppercase;
-      font-size: 0.8rem;
-      letter-spacing: 0.15em;
-      color: #9ca3af;
-      margin-bottom: 0.75rem;
-    }
-
-    .hero-title {
-      font-family: "Georgia", "Times New Roman", serif;
-      font-size: 2rem;
-      line-height: 1.2;
-      margin-bottom: 1rem;
-    }
-
-    .hero-subtitle {
-      font-size: 0.98rem;
-      color: #e5e7eb;
-      margin-bottom: 1.5rem;
-      max-width: 35rem;
-    }
-
-    .hero-meta {
-      font-size: 0.8rem;
-      color: #9ca3af;
-      margin-bottom: 1.5rem;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      color: #111827;
-      padding: 0.7rem 1.3rem;
-      border-radius: 999px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      border: none;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
-    .btn-primary:hover {
-      filter: brightness(0.95);
-    }
-
-    .btn-outline {
-      border-radius: 999px;
-      border: 1px solid #4b5563;
-      padding: 0.7rem 1.3rem;
-      font-size: 0.9rem;
-      color: #e5e7eb;
-      background: transparent;
-      cursor: pointer;
-      text-decoration: none;
-    }
-
-    .btn-outline:hover {
-      background: rgba(15, 23, 42, 0.7);
-    }
-
-    .hero-video {
-      background: rgba(15, 23, 42, 0.5);
-      border-radius: 0.9rem;
-      padding: 0.75rem;
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.3);
-    }
-
-    .hero-video-inner {
-      position: relative;
-      padding-top: 56.25%; /* 16:9 */
-      border-radius: 0.6rem;
-      overflow: hidden;
-      background: #000;
-    }
-
-    .hero-video-inner iframe {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
-    /* Layout sections */
-
-    section {
-      margin-bottom: 2.5rem;
-    }
-
-    .section-title {
-      font-family: "Georgia", "Times New Roman", serif;
-      font-size: 1.4rem;
-      margin-bottom: 1rem;
-    }
-
-    .section-kicker {
-      text-transform: uppercase;
-      font-size: 0.75rem;
-      letter-spacing: 0.18em;
+      font-size: 11px;
+      letter-spacing: 0.2em;
       color: var(--muted);
-      margin-bottom: 0.2rem;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: clamp(28px, 4vw, 40px);
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+
+    .highlight {
+      background: linear-gradient(120deg, var(--accent2), var(--accent3));
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      max-width: 620px;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 26px;
     }
 
     .grid {
       display: grid;
-      grid-template-columns: 2.1fr 1.2fr;
-      gap: 2rem;
-      align-items: flex-start;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.4fr);
+      gap: 24px;
     }
 
-    article {
-      background: var(--card);
-      border-radius: 0.9rem;
-      padding: 1.5rem 1.75rem;
-      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
-      border: 1px solid var(--border);
-    }
-
-    .article-meta {
-      font-size: 0.8rem;
-      color: var(--muted);
-      margin-bottom: 0.75rem;
-    }
-
-    .article-body p {
-      margin-bottom: 1rem;
-      font-size: 0.95rem;
-    }
-
-    .pullquote {
-      margin: 1.5rem 0;
-      padding-left: 1rem;
-      border-left: 3px solid var(--accent);
-      color: var(--muted);
-      font-style: italic;
-      font-size: 0.95rem;
-    }
-
-    .highlight-box {
-      background: #111827;
-      color: #e5e7eb;
-      border-radius: 0.9rem;
-      padding: 1.2rem 1.4rem;
-      margin-top: 0.5rem;
-    }
-
-    .highlight-title {
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: #9ca3af;
-      margin-bottom: 0.3rem;
-    }
-
-    .highlight-box p {
-      font-size: 0.9rem;
-      margin-bottom: 0.4rem;
-    }
-
-    .highlight-list {
-      list-style: disc;
-      margin-left: 1.1rem;
-      font-size: 0.9rem;
-    }
-
-    /* Sidebar */
-
-    .aside-card {
-      background: var(--card);
-      border-radius: 0.9rem;
-      padding: 1.3rem 1.4rem;
-      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
-      border: 1px solid var(--border);
-      margin-bottom: 1.5rem;
-      font-size: 0.9rem;
-    }
-
-    .aside-title {
-      font-size: 0.95rem;
-      font-weight: 600;
-      margin-bottom: 0.4rem;
-    }
-
-    .tag {
-      display: inline-block;
-      padding: 0.18rem 0.5rem;
-      font-size: 0.7rem;
-      border-radius: 999px;
-      background: #e5e7eb;
-      color: #374151;
-      margin-right: 0.25rem;
-      margin-bottom: 0.25rem;
-    }
-
-    .stat-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-      gap: 0.75rem;
-      margin-top: 0.5rem;
-    }
-
-    .stat {
-      background: #f3f4f6;
-      border-radius: 0.6rem;
-      padding: 0.6rem 0.75rem;
-      font-size: 0.8rem;
-    }
-
-    .stat-label {
-      color: var(--muted);
-      font-size: 0.75rem;
-    }
-
-    .stat-value {
-      font-weight: 700;
-      font-size: 1rem;
-    }
-
-    /* “Vozes” */
-
-    .voices {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1rem;
-    }
-
-    .voice-card {
-      background: var(--card);
-      border-radius: 0.8rem;
-      padding: 1rem 1.1rem;
-      border: 1px solid var(--border);
-      font-size: 0.9rem;
-    }
-
-    .voice-role {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--muted);
-      margin-bottom: 0.3rem;
-    }
-
-    .voice-text {
-      font-style: italic;
-      margin-bottom: 0.4rem;
-    }
-
-    /* Footer */
-
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 1.2rem 1.5rem 2rem;
-      margin-top: 1rem;
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-
-    footer .inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
-
-    /* Responsivo */
-
-    @media (max-width: 840px) {
-      .hero {
-        grid-template-columns: 1fr;
-        padding: 1.75rem 1.3rem;
+    @media (max-width: 800px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
       }
-
       .grid {
         grid-template-columns: 1fr;
       }
     }
 
-    @media (max-width: 600px) {
-      main {
-        padding: 1.2rem;
-      }
-
-      header {
-        padding: 0.8rem 1rem;
-      }
-
-      .nav {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.4rem;
-      }
-
-      .hero-title {
-        font-size: 1.6rem;
-      }
-
-      .hero-subtitle {
-        font-size: 0.9rem;
-      }
-
+    .panel {
+      border-radius: 18px;
+      background: radial-gradient(circle at top left,
+        rgba(242,223,192,0.05),
+        rgba(34,16,10,0.96));
+      border: 1px solid rgba(207, 167, 130, 0.28);
+      padding: 18px 18px 16px;
+      position: relative;
+      overflow: hidden;
     }
 
-.transcricao-container {
-    max-width: 700px;
-    margin: 1.5rem 0;
-    font-family: Arial, sans-serif;
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg,
+        rgba(216,167,110,0.28),
+        transparent 35%,
+        rgba(111,76,62,0.3),
+        transparent 70%,
+        rgba(242,223,192,0.25));
+      mix-blend-mode: soft-light;
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    .panel h2 {
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      margin-bottom: 10px;
+      color: var(--muted);
+    }
+
+    .panel h3 {
+      font-size: 16px;
+      margin-bottom: 6px;
+    }
+
+    .panel p {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text);
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .chip {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(30, 13, 8, 0.96);
+      color: var(--muted);
+    }
+
+    .chip--hot {
+      border-color: rgba(216, 167, 110, 0.9);
+      color: var(--accent3);
+      box-shadow: 0 0 12px rgba(216, 167, 110, 0.7);
+    }
+
+    .list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .list li {
+      font-size: 13px;
+      color: var(--text);
+      display: flex;
+      gap: 8px;
+    }
+
+    .list span.label {
+      flex: 0 0 70px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .list span.value {
+      flex: 1;
+    }
+      .photo-wrapper {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(207, 167, 130, 0.4);
+  background: rgba(18, 9, 5, 0.9);
+  max-height: 360px;
 }
 
-.teaser {
-    margin-bottom: 0.5rem;
+.photo-wrapper img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
+    .view {
+      display: none;
+      animation: fadeIn 0.45s ease;
+    }
+    .view.active {
+      display: block;
+    }
 
-.texto-completo {
-    display: none;
-    margin-top: 1rem;
-    line-height: 1.5;
-}
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
 
-.btn-ver-mais {
-    background-color: #1e3a8a;
-    color: #fff;
-    border: none;
-    padding: 0.6rem 1rem;
-    border-radius: 4px;
-    font-size: 0.9rem;
-    cursor: pointer;
-}
+    .project-card {
+      position: relative;
+      padding: 16px 16px 14px;
+      border-radius: 16px;
+      overflow: hidden;
+      background: radial-gradient(circle at top left,
+        rgba(216,167,110,0.3),
+        rgba(26, 12, 7, 0.98));
+      border: 1px solid rgba(216,167,110,0.8);
+      box-shadow:
+        0 0 20px rgba(216,167,110,0.7),
+        0 0 60px rgba(111,76,62,0.45);
+    }
 
-.btn-ver-mais:hover {
-    background-color: #163072;
-}
+    .project-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
 
-.btn-ver-mais:focus {
-    outline: 2px solid #93c5fd;
-}
+    .project-title {
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
 
-.transcricao p {
-    line-height: 1.8;
-    margin-bottom: 1.2rem;
-}
+    .project-tagline {
+      font-size: 13px;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
 
+    .project-body {
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.6;
+    }
 
+    .project-keywords {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
 
+    .project-keywords span {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.26);
+      background: rgba(18, 9, 5, 0.96);
+    }
 
-    
+    footer {
+      margin-top: 20px;
+      font-size: 11px;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    footer a {
+      color: var(--accent3);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
+  <div class="noise"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
 
-<header>
-  <div class="nav">
-    <div class="nav-logo">Bibliotecas Escolares em Portugal</div>
-    <nav class="nav-links">
-      <a href="#reportagem">Reportagem</a>
-      <a href="#dados">Dados</a>
-      <a href="#vozes">Vozes</a>
-      <a href="#sobre">Sobre</a>
-    </nav>
-  </div>
-</header>
-
-<main>
-
-  <!-- HERO + VÍDEO -->
-  <section class="hero">
-    <div>
-      <div class="hero-kicker">Bibliotecas escolares em Portugal:</div>
-      <h1 class="hero-title">Ainda são a porta de entrada para a leitura?</h1>
-      <p class="hero-subtitle">
-        Numa época dominada por ecrãs e conteúdos rápidos, as bibliotecas escolares reinventam‑se entre projetos nacionais,
-        estantes abertas e alunos que já não levam livros para casa.
-      </p>
-      <div class="hero-meta">
-        Reportagem de Mafalda Alves · Estudante da Universidade Fernando Pessoa
+  <div class="wrap">
+    <header>
+      <div class="logo">
+        <div class="logo-mark"></div>
+        <span>Visual Archive of Odd Things</span>
       </div>
-      <div class="hero-actions">
-        <a href="#reportagem" class="btn-primary">Ler a reportagem</a>
-      
-      </div>
-    </div>
+      <nav>
+        <button class="tab-btn active" data-target="home">Home</button>
+        <button class="tab-btn" data-target="sobre">Sobre mim</button>
+        <button class="tab-btn" data-target="história">História</button>
+        <button class="tab-btn" data-target="marca visual">Marca Visual</button>
+        <button class="tab-btn" data-target="cartaz">Cartaz</button>
+      <button class="tab-btn" data-target="noticias">Notícias</button>
+      </nav>
+    </header>
 
-    <div id="video" class="hero-video">
-      <div class="hero-video-inner">
-        <!-- Substitui o src pelo link do teu vídeo (YouTube / Vimeo / ficheiro local) -->
-        <iframe src="https://www.youtube.com/embed/paHOjSSsTf4"
-                title="Vídeo sobre bibliotecas escolares"
-                allowfullscreen></iframe>
-      </div>
-    </div>
-  </section>
+    <main>
+      <!-- HOME = INTRO AO SITE -->
+      <section id="home" class="view active">
+        <p class="tagline">Design gráfico</p>
+        <h1>
+          Um arquivo <span class="highlight">visual</span> de coisas que não querem ser óbvias.
+        </h1>
+        <p class="subtitle">
+          Este site reúne uma seleção de exercícios académicos e explorações pessoais em design gráfico,
+          com foco em identidade visual, tipografia e experiências visuais mais abstratas.
+        </p>
 
-  <!-- REPORTAGEM + SIDEBAR -->
-  <section id="reportagem">
-    <div class="section-kicker">Reportagem</div>
-    <h2 class="section-title">Bibliotecas escolares em Portugal: ainda são a porta de entrada para a leitura?</h2>
-
-    <div class="grid">
-      <article>
-        <div class="article-meta">
-        </div>
-
-        <div class="article-body">
-          <p>
-                Modernas, abertas e multifuncionais, as bibliotecas escolares portuguesas são hoje descritas como "uma espécie de coração da escola, na medida em que apoia todas as disciplinas e todos os grupos disciplinares do agrupamento", afirma a professora de português Maria do Rosário Meireles. De espaços quase prisionais há 25 anos, onde livros viviam trancados em armários envidraçados e funcionários que controlavam as chaves como carcereiros, passaram a centros educativos dinâmicos com computadores, jogos de tabuleiro, equipamento técnico profissional e até acesso controlado a plataformas como Netflix para conteúdos pedagógicos. Mas, por detrás das salas renovadas e cheias de alunos que ocupam cada vez mais estes espaços, esconde-se um problema menos visível mas preocupante: a leitura propriamente dita está em declínio acentuado. Professores e bibliotecários debatem-se diariamente para reinventar o fascínio ancestral dos livros num tempo dominado por ecrãs omnipresentes, distrações constantes, conteúdos efémeros e uma velocidade cultural que fragmenta a atenção sustentada.
-
+        <div class="grid">
+          <div class="panel">
+            <h2>O que vais encontrar aqui</h2>
+            <p>
+              Um espaço em constante construção: projetos da disciplina, estudos de autores, experimentos
+              tipográficos e pequenas obsessões visuais que não cabem num PDF de portefólio tradicional.
             </p>
+            <p>
+              Cada aba revela uma parte deste processo – da apresentação pessoal a um mergulho mais
+              profundo no universo de Stefan Sagmeister e na forma como influenciou o meu trabalho.
+            </p>
+            <div class="chip-row">
+              <span class="chip chip--hot">Identidade visual</span>
+              <span class="chip">Tipografia</span>
+              <span class="chip">Abstração</span>
+              <span class="chip">Processo</span>
+            </div>
+          </div>
 
-          <div class="highlight-box">
-            <div class="highlight-title">Pontos chave</div>
-            <p>Ao longo desta reportagem, abordar-se-ão temas como:</p>
-            <ul class="highlight-list">
-              <li>Transformação das bibliotecas</li>
-              <li>Sucesso estrutural via RBE</li>
-              <li>Paradoxo da ocupação das bibliotecas</li>
-              <li>Picos etários na leitura</li>
-              <li>Estratégias de combate</li>
-              <li>Interior vs litoral</li>
+          <div class="panel">
+            <h2>Como navegar</h2>
+            <ul class="list">
+              <li>
+                <span class="label">Sobre mim</span>
+                <span class="value">
+                  Quem sou eu e porquê este site ?
+                </span>
+              </li>
+              <li>
+                <span class="label">História</span>
+                <span class="value">
+                  Stefan Sagmeister, e de que forma inspirou à criação do site
+                </span>
+              </li>
+              <li>
+                <span class="label">Marca Visual</span>
+                <span class="value">
+                  Aba em construção, novidades em breve...
+                </span>
+              </li>
+              <li>
+                <span class="label">Cartaz</span>
+                <span class="value">
+                   Aba em construção, novidades em breve...
+                </span>
+              </li>
+               <li>
+                <span class="label">Notícias</span>
+                <span class="value">
+                   Aba em construção, novidades em breve...
+                </span>
+              </li>
             </ul>
           </div>
+        </div>
+      </section>
 
-          <h3 style="margin-top:1.7rem; margin-bottom:0.6rem; font-size:1.05rem;">
-            Um “coração” em plena mutação
-          </h3>
+      <!-- SOBRE MIM -->
+ 
 
-          <p>
-             Na Escola Básica e Secundária de Canelas, situada no coração industrial de Vila Nova de Gaia, o professor bibliotecário Augusto Oliveira, com duas décadas de experiência naquele espaço específico, descreve a evolução com entusiasmo palpável. Destacou que a biblioteca tem sido concebida como um espaço complementar à sala de aula, onde é promovido o trabalho autónomo, a pesquisa e a realização de tarefas. Acrescentou ainda que, ao longo dos anos, o espaço passou a disponibilizar recursos variados — desde jogos e revistas até conteúdos digitais como o Netflix — refletindo uma oferta cada vez mais diversificada.
-          </p>
-<p>
-          Descobre mais no  <a href="https://agrcanelas.edu.pt/blogs/biblioteca/" target="_blank">blogue da biblioteca</a>.
-</p>
-          <p>
-             Este ecossistema multifuncional tem sido resultado de sucessivas candidaturas aprovadas à  <a href="https://www.rbe.mec.pt/np4/home.html" target="_blank">Rede de Bibliotecas Escolares (RBE)</a>, estrutura nacional criada em 1997 e atualmente responsável pela gestão de mais de dois mil espaços educativos em todo o país. Foi explicado por Augusto Oliveira que “são poucos países que têm uma estrutura, ou que têm um Ministério de Educação que tem uma estrutura, como a Rede das Bibliotecas Escolares, que, portanto, orienta, dá apoio, financia as bibliotecas”, acrescentando que diversas candidaturas têm sido concretizadas em áreas como a inclusão, a leitura inclusiva e projetos emergentes. O sucesso estrutural é comprovado pela intensa frequência diária: os computadores são ocupados por turmas inteiras para pesquisa académica, trabalhos colaborativos são realizados por alunos do pré‑escolar ao secundário, e o espaço é utilizado como refúgio tranquilo durante a hora de almoço face ao polivalente ruidoso da escola.
+      <section id="sobre" class="view">
+        <p class="tagline">Sobre mim</p>
+        <h1>
+          Entre o <span class="highlight">ruído visual</span> e a estrutura.
+        </h1>
+        <p class="subtitle">
+          Antes de explorares, acho que deverias saber quem sou e o porquê de ter criado este site.
+        </p>
 
-          </p>
-          
-
-          <h3 style="margin-top:1.7rem; margin-bottom:0.6rem; font-size:1.05rem;">
-            Entre entusiasmo inicial e a quebra adolescente
-          </h3>
-
-          <p>
-           Na vizinha Escola Diogo de Macedo, a professora de português, Inês Carolina Pinto, responsável por turmas do 3.º ciclo e secundário, confirma esta tendência paradoxal diretamente da sala de aula onde passa mais de 20 horas semanais:       </p>
-            <div class="pullquote">
-            "No primeiro ciclo, os meninos leem muito, no segundo ciclo ainda leem muito, e depois há ali um momento em que parece que há uma quebra. Essa quebra na leitura não consigo identificar a razão.  Claro que toda a gente hoje fala no apelo do visual e da imagem e dos filmes e dos telemóveis e dos jogos e tudo isso. Poderá ser só isso? ".
+        <div class="grid">
+          <div class="panel">
+            <h2>Bio</h2>
+            <p>
+             Olá! O meu nome é Mafalda Alves, sou estudante de Ciências da Comunicação no 2.º ano, na Universidade Fernando Pessoa, e este site nasce da cadeira de Design Gráfico, mas também de uma vontade pessoal de organizar o caos de ideias que tenho na cabeça. Mais do que um portefólio fechado, encaro-o como um laboratório onde posso testar, errar e voltar a montar as coisas de outra forma.
+            </p>
+            <p>
+             Interesso-me por tudo o que seja comunicação visual que foge ao óbvio: identidades que não são totalmente “limpas”, composições que parecem estranhas à primeira vista, pequenos detalhes que obrigam a olhar duas vezes. Gosto de explorar formatos, texturas e combinações improváveis, misturando referências de arte, cultura visual e aquilo que vou descobrindo no dia a dia.
+            </p>
+            <p>
+              Adoro falar, discutir ideias e fazer perguntas a mais – faz parte da forma como penso e crio. A criatividade, para mim, não é só “ter ideias giras”, é aceitar o desconforto, o acaso e o erro como parte do processo.
+            </p>
+            <p>
+              Este “arquivo visual de coisas que não querem ser óbvias” reúne exercícios académicos e experiências pessoais do tipo de comunicadora em que me estou a tornar. Não é uma coleção definitiva, é um work in progress que acompanha o meu percurso na universidade e fora dela.
+            </p>
           </div>
-          <p>
-           O problema manifesta-se de forma paradigmática quando chega a hora dos clássicos do cânone literário português. Perante obras como “Os Maias”, de Eça de Queirós, os adolescentes reagem com desespero antecipado. Como foi referido pela docente, “uma pessoa que não lê (...) desiste”.  É descrito assim o mecanismo psicológico vicioso e auto-perpetuador: alunos sem hábito regular de leitura sustentada – realidade dominante no 3.º ciclo segundo todos os indicadores recolhidos – criam uma barreira mental face ao volume físico da obra, desistem preventivamente, consolidam aversão progressiva que se agrava ao longo dos anos letivos subsequentes. Curiosamente, entre os alunos, é por vezes expressa uma perceção mais positiva da leitura dos clássicos. Sofia Neves, da Escola Secundária Diogo de Macedo, refere: “para mim Os Maias fascinam. Fui obrigada a ler e ainda bem, porque o livro é bom.”, opinião que, embora partilhada por alguns, permanece minoritária.
-        </p>
           
-          <h3 style="margin-top:1.7rem; margin-bottom:0.6rem; font-size:1.05rem;">
-            Estratégias para reconquistar uma geração distraída
-          </h3>
+       <div class="panel">
+  <h2>Retrato</h2>
+  <div class="photo-wrapper">
+    <img src="31ac8c68-45f2-44a3-8f83-6689104efdd1 (1).JPG" alt="Retrato de Mafalda Alves">
+  </div>
+</div>
 
-          <p>
-               A escola ocupa uma posição ambígua na promoção da leitura. Por um lado, é o principal espaço institucional onde o contacto com os livros é garantido. Por outro, é também o local onde a leitura é frequentemente associada à obrigação, à avaliação e ao desempenho. Esta contradição atravessa todo o percurso escolar e tende a acentuar-se à medida que os alunos avançam de ciclo.
-             <p>
-           No ensino básico, a leitura é apresentada como descoberta. No ensino secundário, transforma-se em tarefa. O tempo para ler por prazer diminui à medida que aumentam os conteúdos programáticos, as metas curriculares e a pressão dos exames. A leitura deixa de ser fim e passa a ser meio.
+        </div>
+      </section>
+
+      <!-- PORTFÓLIO -->
+      <section id="história" class="view">
+        <p class="tagline">História</p>
+          <h1>
+          Stefan <span class="highlight">Sagmeister</span>: corpo, texto e desconforto.
+        </h1>
+        <p class="subtitle">
+          Stefan Sagmeister foi o ponto de partida e, ao mesmo tempo, a desculpa perfeita para eu levar este site para um lado menos óbvio.
         </p>
-          <p>
-             Este processo contribui para uma relação instrumental com os livros: lê-se para responder a perguntas, não para formular novas. Lê-se para cumprir, não para explorar. Mesmo iniciativas bem-intencionadas acabam por esbarrar nesta lógica estrutural.
-          </p>
-          <p>
-             As bibliotecas escolares portuguesas responderam a esta crise diversificando radicalmente a sua própria identidade programática. Na EBS Diogo Macedo, as estantes abertas albergam não apenas romances, manuais e clássicos mas também“os jogos, (...) uma guilhotina, uma plastificadora a quente, (...), cartolinas, marcadores – auxiliam qualquer outro trabalho que eles tenham que fazer”, sendo também referido que o espaço “acaba por ser um centro de recursos (...) físicos e digitais”, com materiais disponíveis no  <a href="https://bibliotecaesdiogomacedo.blogspot.com/" target="_blank">blog da biblioteca</a> e tutoriais sobre a realização de trabalhos ou apresentações, de forma a que os alunos possam usufruir desses recursos também em casa.
-          </p>
-          <p>
-             Adaptações gráficas dos clássicos emergem como "uma boa entrada essa (...), ir pelas bandas desenhadas e conseguir que se tenha ali algum conhecimento", embora a professora de português da escola Diogo Macedo, reconheça o risco: "Em alguns casos eles ficam só por aqui e depois já não avançam”.
-          </p>
-          <p>
-             Nas redes sociais, fenómenos digitais inesperados surgem como aliados improváveis. Inês Pinto dá o exemplo de jovens que utilizam as redes sociais, como o Instagram e o TikTok para divulgar livros, sendo uma forma de promoção de leitura. Estas recomendações, de forma mais íntima e pessoal, contornam a autoridade adulta tradicional, aproximando a leitura recreativa do universo cultural nativo dos adolescentes.
-          </p>
 
-        
-         <h3 style="margin-top:1.7rem; margin-bottom:0.6rem; font-size:1.05rem;">
-           Ler menos não é o mesmo que saber menos — mas é perigoso fingir que não é
-          </h3>
+        <div class="grid">
+          <div class="panel">
+            <h2>Contexto do projeto</h2>
+            <div class="project-card">
+              <div class="project-title">“Corpo como superfície tipográfica”</div>
+              <div class="project-tagline">
+               Stefan Sagmeister é um designer gráfico austríaco reconhecido internacionalmente pelo seu trabalho conceptual e experimental. Nascido em 1962, estudou design em Viena e posteriormente no Pratt Institute, em Nova Iorque. Em 1993 fundou o seu próprio estúdio, Sagmeister Inc., e mais tarde criou a Sagmeister & Walsh, consolidando uma prática que cruza design, arte e instalação.
+              </div>
+              <div class="project-body">
+               O seu trabalho distingue-se pela abordagem provocadora e pela exploração da tipografia como elemento físico e experiencial. Sagmeister frequentemente utiliza materiais reais, o próprio corpo e instalações tridimensionais para construir mensagens visuais, ultrapassando os limites do design gráfico tradicional. Em vez de aplicar texto sobre imagens, transforma as palavras em objetos e experiências.
+              </div>
+              <p>
+                Ao longo da sua carreira, desenvolveu projetos para clientes culturais e comerciais, incluindo capas de álbuns, identidades visuais e exposições internacionais. Paralelamente, criou projetos autorais que abordam temas como felicidade, beleza e ética no design, defendendo que a estética e o impacto emocional são componentes fundamentais da comunicação visual.
+              </p>
+              <p>
+                Sagmeister é amplamente reconhecido por expandir o papel do designer gráfico contemporâneo, demonstrando que o design pode ser simultaneamente funcional, conceptual e crítico.
+              </p>
+              <div class="project-keywords">
+                <span>Tipografia experimental</span>
+                <span>Fotografia + texto</span>
+                <span>Design conceptual</span>
+                <span>Identidade visual</span>
+              </div>
+            </div>
+          </div>
 
-        <p>
-            A diminuição dos hábitos de leitura entre crianças e adolescentes não pode ser explicada apenas pela concorrência dos ecrãs ou pela ascensão das redes sociais. O fenómeno cruza mudanças tecnológicas, transformações culturais e alterações no próprio funcionamento da escola. Ler menos não significa automaticamente saber menos, mas implica formas diferentes — e mais frágeis — de relação com o conhecimento.
-            </p>
-        <p>
-            A leitura longa e contínua treina competências específicas que outros formatos dificilmente substituem: concentração prolongada, interpretação complexa e construção de sentido ao longo do tempo. Quando estes exercícios desaparecem ou se tornam residuais, o impacto não é imediato, mas cumulativo. Vê-se na dificuldade em compreender textos extensos, em sustentar argumentos ou em lidar com ambiguidades — competências centrais para o pensamento crítico.
-          </p>
-        <p>
-               As bibliotecas escolares portuguesas tentam contrariar esta tendência oferecendo acesso facilitado aos livros e criando ambientes convidativos. No entanto, a existência de uma biblioteca moderna não garante, por si só, a formação de leitores. O gesto de ler não nasce apenas do acesso, mas da repetição, do tempo disponível e de uma cultura que legitime a leitura como atividade valiosa.
-        
-            </p>
-
+          <div class="panel">
+            <h2>Porquê inspirar-me em Stefan Sagmeister?</h2>
             <p>
-              Num raro ponto de consenso entre docentes e bibliotecários, é identificada por ambos a raiz estrutural da crise leitora: a ausência de curiosidade espontânea. Como foi sintetizado por Maria, “falta um bocadinho de curiosidade aos alunos (...). Já quase não se encontram miúdos que cheguem aqui e se encostem às estantes”. Também foi referido por Augusto , e confirmado por estudos internacionais, que “os alunos mais novos, entre os 6 e os 12 anos, são aqueles que procuram mais a biblioteca (...). Depois, no terceiro ciclo, (...), fazem uma pausa”.
+            Quando o professor, Francisco Mesquita, me deu o tema, eu conhecia o nome, mas não tinha noção da intensidade com que ele usa o corpo, o desconforto e a emoção como matéria de design. À medida que fui explorando o trabalho dele, percebi que não se trata só de fazer imagens “bonitas”, mas de criar experiências visuais que quase incomodam, que deixam marcas. Isso influenciou diretamente a forma como pensei este projeto.
             </p>
             <p>
-            Perante o declínio generalizado da curiosidade espontânea e o afastamento progressivo da leitura, têm sido promovidas diversas iniciativas nacionais que procuram contrariar essa tendência. Lançado pelo Plano Nacional de Leitura com verbas específicas para aquisição de livros, o programa  <a href="https://www.pnl2027.gov.pt/np4/lereescreveradistancia_10minutos.html" target="_blank">”10 Minutos a Ler”</a> tucionaliza momentos diários de leitura recreativa não avaliativa em contexto letivo. Em Canelas, os inquéritos finais revelam resultados positivos: “95% dos alunos disseram que gostavam da atividade e que até gostavam que a atividade passasse a ter mais tempo.” Ainda assim, como observa Inês Carolina, “alguns garotos (...) arranjaram forma de ultrapassar a obrigatoriedade da leitura”, sublinhando que, apesar do bom feedback, “há coisas a acertar”, nomeadamente a extensão do projeto a outras disciplinas para evitar que se restrinja apenas à aula de Português.
+              Ao construir o site, quis fugir da ideia de portefólio limpinho e neutro: a paleta escura e quente, o ruído, a sensação de textura e as frases que não explicam tudo à primeira são escolhas inspiradas na forma como o Sagmeister transforma o design em algo físico.  A própria estrutura do site reflete isso, porque cada secção funciona como um fragmento de narrativa e a aba dedicada a ele acaba por contaminar o resto. 
+            </p>
+            <p>
+              Conhecer o trabalho do Sagmeister fez‑me olhar para o design gráfico como algo mais performativo e menos distante. Em vez de ver este site apenas como um exercício técnico, passei a encará‑lo como um pequeno gesto na mesma direção: usar o digital para guardar experiências visuais que não querem ser óbvias, que assumem a estranheza e o desconforto como parte da linguagem. Este projeto é, no fundo, o meu primeiro “ensaio” pessoal a partir das provocações que o trabalho dele me trouxe.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SAGMEISTER -->
+      <section id="marca visual" class="view">
+        <p class="tagline">Marca Visual</p>
+        <h1>
+          Em <span class="highlight">construção</span>
+        </h1>
+       
+      <div class="panel">
+          <h2></h2>
+          <p>
+          Novidades em breve.
+          </p>
+        </div>
+      </section>
+
+      <!-- CONTACTO -->
+      <section id="cartaz" class="view">
+        <p class="tagline">Cartaz</p>
+        <h1>
+          Em <span class="highlight">construção</span>
+        </h1>
   
-            </p>
-
-          <h3 style="margin-top:1.7rem; margin-bottom:0.6rem; font-size:1.05rem;">
-          25 anos depois do “arquivo prisional” — com apoio concreto da RBE
-          </h3>
-
+<div class="panel">
+          <h2></h2>
           <p>
-            As recordações de Maria do Rosário remetem para um tempo em que as bibliotecas escolares eram caracterizadas por espaços fechados e de acesso restrito, com armários trancados e materiais guardados sob controlo rigoroso. Com a criação da Rede de Bibliotecas Escolares, em 1997, verificou‑se uma transformação estrutural profunda: o acesso aos livros foi progressivamente liberalizado, as infraestruturas foram modernizadas e as candidaturas apresentadas permitiram o investimento em novos equipamentos e a ampliação do espaço físico da biblioteca.
+            Novidades em breve.
           </p>
-          <p>
-              Hoje Portugal destaca-se internacionalmente: 
-            </p>
- <div class="pullquote">
-  "Esta escola [Canelas] é uma escola Erasmus e (...) temos tido contacto com muitas escolas de países diferentes.(...) eu penso que, comparativamente aos outros países, nós temos uma estrutura magnífica no nosso país, que tem mesmo surpreendido os colegas, porque muitos deles, alguns não têm biblioteca, outros têm biblioteca, mas as bibliotecas funcionam tipo um arquivo de livros, ou um espaço partilhado com outras estruturas. Portanto, não têm esta autonomia, nem esta vida que as bibliotecas em Portugal têm"
- </div>
-            <p>
-              A Rede de Bibliotecas Escolares integra mais de 2 mil bibliotecas por todo o país, operando como ecossistema dinâmico de apoio contínuo através de candidaturas permanentes e diversificadas. Financiamentos como o  <a href="https://www.rbe.mec.pt/np4/candidatura-bePLAN.html" target="_blank">bePLAN26</a> disponibilizam até 500€ por escola para planos de atividades no ano letivo 2025/2026, aplicados frequentemente em reforço documental, aquisição de equipamentos como tablets e projetos de leitura ou literacia digital. Os projetos SABE, geridos por bibliotecas municipais, prestam suporte técnico especializado na organização de fundos, gestão operacional e dinamização de iniciativas culturais em parceria com as comunidades escolares. 
-            </p>
-             <p>
-              Candidaturas específicas focam-se em leitura inclusiva — através de programas como  <a href="https://www.rbe.mec.pt/np4/TodosJuntosPodemosLer.html" target="_blank">“Todos Juntos Podemos Ler”</a>, com recursos adaptados em Braille, audiolivros e formatos acessíveis —, ações emergentes para requalificação de espaços, reforço de coleções e alinhamento com desafios como inclusão digital e Agenda 2030.
-             </p>
-
-    
-         <h3 style="margin-top:1.7rem; margin-bottom:0.6rem; font-size:1.05rem;">
-          Literacias digitais <i>vs</i> leitura tradicional: o novo campo de batalha
-          </h3>
-
-          <p>
-            Se as bibliotecas escolares portuguesas superaram o modelo prisional de armários trancados, enfrentam agora um dilema contemporâneo: formar leitores de livros físicos num tempo dominado por ecrãs e inteligência artificial. Maria do Rosário revela que na Diogo Macedo "Temos os e-readers, temos os e-books e aqui nesta escola eu não sinto que os alunos leiam muito no digital. “—, mas reconhece a urgência das literacias digitais como missão transversal da RBE, trabalha-se a literacia de informação como as fake news, a inteligência artificial e os direitos do autor.
-          </p>
-          <p>
-          O Mês Internacional das Bibliotecas Escolares, celebrado em outubro, exemplifica esta tensão entre tradição e inovação tecnológica nas bibliotecas portuguesas. O tema "Histórias e Inteligência Artificial" incentivou alunos a experimentar ferramentas como o ChatGPT para ilustrar textos literários, mas revelou uma tendência preocupante: a cópia indiscriminada de conteúdos gerados por IA sem qualquer filtro crítico ou adaptação criativa. Como nota a professora, "Fizemos uma dinâmica interessante aqui porque, a partir da sensibilização para a importância de um uso adequado da Inteligência Artificial e de um uso crítico quanto à sua utilização."
-        </p>
-          <p>
-         A coordenadora nacional da Rede de Bibliotecas Escolares (RBE), Manuela Pargana Silva, sublinha que este equilíbrio entre ferramentas digitais e competências críticas constitui uma prioridade estratégica da rede. Num país que se destaca como líder europeu em infraestruturas bibliotecárias — com mais de 2 mil espaços integrados e financiamentos contínuos —, a batalha atual transcende o físico: trata-se de formar uma nova geração de leitores críticos, capazes de navegar entre ecrãs interativos e a página impressa sem abdicar do pensamento autónomo e da análise profunda. Iniciativas como formações em literacia digital e parcerias com plataformas educativas visam precisamente contrariar o risco de dependência acrítica da IA, promovendo uma cultura de uso responsável que potencie, em vez de substituir, a imaginação humana.
-        </p>
-
-           <h3 style="margin-top:1.7rem; margin-bottom:0.6rem; font-size:1.05rem;">
-         A biblioteca como espaço híbrido
-          </h3>
-
-          <p>
-        Perante o cenário atual de crise leitora, as bibliotecas escolares portuguesas foram transformadas em espaços híbridos multifuncionais que conciliam a leitura tradicional com convivência social, trabalho colaborativo e acesso digital irrestrito. Esta metamorfose responde diretamente à realidade concreta de que exigir leitura num espaço que os alunos raramente frequentam revela-se completamente ineficaz — os espaços outrora silenciosos e reverenciais deram lugar a centros dinâmicos onde computadores, jogos de tabuleiro, revistas e até conteúdos digitais coexistem nas estantes abertas.
-        </p>
-          <p>
-        A estratégia subjacente é pragmática e sequencial: primeiro garante-se a permanência física através de atividades atrativas que competem com a fragmentação da atenção contemporânea; só depois se fomenta a curiosidade espontânea pelo livro, que passa a coexistir — não a competir — com outras formas de ocupação do tempo escolar.  “Nós procuramos na sua preparação que elas sejam mais atrativas e que vão ao encontro do interesse dos alunos, que eles se sintam motivados, que gostem de estar presentes na biblioteca”, afirma o professora bibliotecário da EBS Canelas. Nesta escola realizam-se atividades relacionadas com pintura, pesquisa e escrita, para que todos os alunos possam participar.
-        </p>
-          <p>
-           Ainda assim, este pragmatismo reflete uma leitura lúcida da cultura atual — atenção dispersa, imediatismo digital, rejeição do silêncio prolongado. A biblioteca procura assim relevância quotidiana antes da pureza missionária, reconhecendo que, sem frequência inicial, não há progressão possível para o hábito de leitura genuíno. O potencial é evidente: onde antes havia ausência, agora existe ocupação; onde reinava desinteresse, pode emergir — ainda que lentamente — familiaridade com a página impressa.
-          </p>
-
-          <h3 style="margin-top:1.7rem; margin-bottom:0.6rem; font-size:1.05rem;">
-         A Rede de Bibliotecas Escolares: o motor silencioso por trás da transformação nacional
-          </h3>
-
-          <p>
-          Portugal construiu uma Rede de Bibliotecas Escolares europeia de referência absoluta: 2.706  espaços modernos bem equipados por todo o país continental e insular e 434 novas "Pontes Biblioteca" até 2026 para o 1.º ciclo tradicionalmente desprotegido. Funciona como estrutura nacional centralizada que orienta metodologicamente, financia de forma competitiva através de candidaturas permanentes e forma continuamente todos os professores bibliotecários, garantindo coordenação concelhia próxima em cada município português e colocando recursos online acessíveis a todas as escolas sem exceção.
-        </p>
-          <p>
-          O apoio concreto às escolas manifesta-se através de planos anuais de atividades obrigatórios com estrutura específica definida nacionalmente, avaliados sistematicamente no final de cada ano letivo e registados em bases de dados nacionais que permitem orientação estratégica ao nível nacional para todo o sistema educativo português. As candidaturas permanentes constituem o coração financeiro da rede, abrangendo projetos de leitura inclusiva destinados a populações desfavorecidas, ações emergentes pontuais que financiam atividades culturais de grande impacto local quando as escolas não dispõem de verbas próprias, reforço sistemático do fundo documental através da aquisição criteriosa e regular de novidades literárias adequadas a todos os escalões etários, e programas robustos de formação certificada e acreditada para as equipas bibliotecárias completas de cada escola.
-        </p>
-          <p>
-            O docente da Escola de Canelas, sublinha o impacto desta estrutura nos territórios mais desafiados: 
-        </p>
-        <div class="pullquote">
-          "(...)Há muitas bibliotecas que estão [na RBE], que ainda não têm as condições necessárias. Portanto, nós somos um caso especial, como outras,(...) mas há muitas escolas ainda no país que não têm biblioteca, ou então se têm uma biblioteca têm condições ainda muito precárias, quer em termos de equipamento informático, ou mesmo em termos de fundo documental, e do próprio espaço muitas vezes é reduzido". 
         </div>
+      </section>
+
+       <section id="noticias" class="view">
+        <p class="tagline">Notícias</p>
+        <h1>
+          Em <span class="highlight">construção</span>
+        </h1>
+<div class="panel">
+          <h2></h2>
           <p>
-         Esta solução minimalista mas extraordinariamente escalável não exige uma sala dedicada — pode ser implementada num simples corredor com luz natural ou num canto da escola — e Canelas já tem uma montada, tendo apresentado candidatura para uma terceira biblioteca, que servirá de apoio para as suas 13 escolas básicas de primeiro ciclo.
-        </p>
-        <p>
-           Paralelamente, o programa  <a href="https://iave.pt/provas-e-exames/provas-e-exames/diagnostico-da-fluencia-leitora/" target="_blank">Fluência Leitora</a> atinge todos os alunos do 2.º ano nacional, identificando precocemente dificuldades lectoras fundamentais e promovendo intervenções avaliadas nacionalmente para que essas dificuldades sejam combatidas logo no início do percurso escolar, evitando assim problemas cumulativos nos anos subsequentes. Estas iniciativas respondem diretamente às zonas do interior e às escolas pequenas mais isoladas, que historicamente enfrentavam maiores dificuldades logísticas e financeiras para desenvolver infraestruturas bibliotecárias dignas desse nome.
-
-        </p>
-
-         
-          <h3 style="margin-top:1.7rem; margin-bottom:0.6rem; font-size:1.05rem;">
-         Desafios das bibliotecas: interior <i>vs</i> litoral em desenvolvimento desigual
-          </h3>
-
-          <p>
-          As desigualdades de capital cultural familiar representam um dos obstáculos mais profundos à promoção efetiva da leitura nas escolas portuguesas. A escola pode oferecer os mesmos livros a todos os alunos, mas estes não chegam ao encontro da leitura em condições iguais: o contacto prévio com textos em casa, o vocabulário acumulado fora do ambiente letivo e a familiaridade com narrativas escritas criam assimetrias iniciais que se agravam ao longo dos anos. Para muitos alunos — especialmente aqueles oriundos de contextos onde a leitura não é prática quotidiana entre adultos —, o livro é percecionado primordialmente como um instrumento avaliativo, uma obrigação transitória, e não como fonte de prazer autónomo ou curiosidade exploratória.
+            Novidades em breve.
           </p>
-           <div class="pullquote">
-            “A biblioteca tem que continuar a ser um polo central na educação e na leitura.”- Professora Inês Pinto
-           </div>
-          <p>
-          As bibliotecas escolares, nesse sentido, atuam como atenuadores dessas desigualdades invisíveis, fornecendo não só acesso físico a materiais diversificados, mas também oportunidades de exposição gradual à leitura em ambientes menos coercivos. No entanto, o seu impacto revela-se limitado: projetos de fomento lector tendem a surtir efeitos mais visíveis junto daqueles que já possuem alguma predisposição familiar, enquanto falham em penetrar as barreiras de quem mais necessita de ruturas radicais no seu relacionamento com o texto escrito. Esta dinâmica explica, em grande medida, os resultados desiguais de muitas iniciativas nacionais, onde o sucesso quantitativo mascara persistências qualitativas profundas.
-        </p>
-        <p>
-          A estas desigualdades culturais somam-se as assimetrias geográficas históricas entre litoral urbano e interior despovoado, que a Rede de Bibliotecas Escolares (RBE) tem procurado inverter através de políticas direcionadas. Zonas costeiras, beneficiando de maior densidade populacional, proximidade a câmaras municipais bem financiadas e redes de apoio logístico ágeis, conseguem implementar projetos com maior rapidez e visibilidade. Em contraste, escolas pequenas no interior operavam tradicionalmente com espaços exíguos, coleções desatualizadas e coordenadores concelhios distantes, limitados por orçamentos restritos e isolamento relativo.
-
-        </p>
-        <p>
-          Foi precisamente nestes territórios desafiados que a RBE concentrou esforços prioritários, através de candidaturas específicas desenhadas para reforçar infraestruturas e integrar escolas que funcionavam como meros arquivos obsoletos. A coordenadora nacional Manuela Pargana Silva sublinhou que "zonas do interior, tradicionalmente desfavorecidas, têm recebido prioridade em candidaturas", o que resultou na modernização de centenas de espaços e na criação de ecossistemas bibliotecários mais equitativos. Hoje, Portugal ostenta uma das redes de bibliotecas escolares mais avançadas da Europa, com investimento público continuado, equipamentos profissionais e integração em programas como o bePLAN ou SABE.
-
-        </p>
-        <p>
-          Contudo, este sucesso estrutural confronta um paradoxo civilizacional evidente: nunca as bibliotecas estiveram tão bem equipadas e acessíveis, mas formar leitores regulares permanece uma batalha árdua.”Nós estamos numa comunidade que tem alguns problemas de algumas famílias do foro económico e, portanto, é fundamental que a biblioteca esteja bem equipada e esteja a proporcionar o contacto com os livros aos seus alunos”, afirma Inês Pinto. A explicação transcende as paredes escolares, radicando-se em fatores externos como modelos culturais dominantes, rotinas familiares aceleradas, expectativas sociais imediatistas e uma relação ambivalente com o conhecimento profundo. As bibliotecas modernizaram-se e profissionalizaram-se, mantendo-se abertas e resilientes, mas o seu papel revela-se insuficiente perante desafios que demandam uma transformação mais ampla da sociedade — uma valorização coletiva da atenção sustentada e do prazer não utilitário da leitura.
-        </p>
-
-          <p>
-            A biblioteca sobrevive. Modernizou-se. Profissionalizou-se. Continua aberta.
-          </p>
-          
-          <p>
-          Mas há uma quebra acentuada no número de leitores. Num tempo de conteúdos efémeros de 15 segundos, atenção fragmentada por notificações incessantes e cultura da instantaneidade absoluta, a grande conquista estrutural portuguesa confronta-se com uma verdade incómoda: ter o melhor estádio cultural educativo do mundo não garante público nas bancadas. Os professores Augusto Oliveira, Maria do Rosário Meireles e Inês Carolina Pinto coincidem no essencial – falta curiosidade espontânea para o gesto simples de pegar num livro e folhear. A biblioteca sobrevive modernizada e profissionalizada. A questão civilizacional permanece: quem ocupará as estantes iluminadas, bem organizadas e convidativas que esperam mãos genuinamente curiosas?
-
-        </p>
-
-
-
-
         </div>
-      </article>
+    </main>
 
-      <aside>
-        <div class="aside-card">
-          <div class="aside-title">Tema e objetivos</div>
-          <p style="margin-bottom:0.5rem;">
-            Investigar o papel atual das bibliotecas escolares no incentivo à leitura, analisando o impacto, as estratégias e os desafios.
-          </p>
-          <span class="tag">Bibliotecas escolares</span>
-          <span class="tag">Leitura</span>
-          <span class="tag">RBE</span>
-          <span class="tag">PNL</span>
-        </div>
-
-        <div class="aside-card" id="dados">
-  <div class="aside-title">Dados</div>
-  <div class="stat-grid">
-    <div class="stat">
-      <div class="stat-label">Bibliotecas na rede</div>
-      <div class="stat-value">2.706</div>
-      <div class="stat-label">espaços em escolas portuguesas (2024)</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Expansão 1.º ciclo</div>
-      <div class="stat-value">+434</div>
-      <div class="stat-label">novas bibliotecas até 2026</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">10 Minutos a Ler</div>
-      <div class="stat-value">Diário em aula</div>
-      <div class="stat-label">PNL · 2.º/3.º ciclo e secundário</div>
-    </div>
+    <footer>
+      <span>© 2026 Mafalda Alves. Todos os direitos reservados.</span>
+      <span>Construído em HTML + CSS e ruído visual moderadamente controlado.</span>
+    </footer>
   </div>
-  <div style="margin-top:1rem; padding:0.8rem; background:#f3f4f6; border-radius:0.6rem; font-size:0.85rem;">
-    <strong>Fonte:</strong> RBE, PNL, PORDATA (2024-2025). 
-  </div>
-</div>
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-    <meta charset="UTF-8">
-    <title>Bibliotecas Escolares Portugal</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
-        nav { background: #2c3e50; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
-        nav ul { list-style: none; padding: 0; margin: 0; }
-        nav li { margin: 10px 0; }
-        nav a { color: white; text-decoration: none; font-weight: bold; padding: 10px; display: block; border-radius: 5px; transition: background 0.3s; }
-        nav a:hover { background: #34495e; }
-        .entrevistas { background: #e74c3c !important; }
-        .entrevistas a:hover { background: #c0392b !important; }
-        .video-container { max-width: 800px; margin: 20px auto; }
-        audio { width: 100%; height: 50px; }
-        .transcricao { background: #ecf0f1; padding: 20px; border-left: 5px solid #3498db; margin: 20px 0; white-space: pre-wrap; }
-    </style>
-</head>
-<body>
 
-<!-- CONTEÚDO NOVO: Secção Entrevistas (scroll suave) -->
-<section id="entrevistas" class="video-container">
-    <h1> Entrevistas Completas</h1>
-    <p>
+  <script>
+    const buttons = document.querySelectorAll(".tab-btn");
+    const views = document.querySelectorAll(".view");
 
-    </p>
-<!-- Entrevista 1 -->
-<h3>Professora bibliotecária Maria do Rosário Meireles(EBS Diogo Macedo) </h3>
+    buttons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const target = btn.dataset.target;
 
-<div class="video-container">
-    <iframe 
-        src="https://www.youtube.com/embed/3qfN2QfO8qc"
-        title="Entrevista Professora de bibliotecária Maria do Rosário Meireles"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen>
-    </iframe>
-</div>
+        buttons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
 
-<div class="transcricao-container">
-    <div class="teaser">
-        <span class="continua">…</span>
-    </div>
-
-    <button class="btn-ver-mais" onclick="toggleTranscricao('trans1', this)">
-        Ver transcrição completa
-    </button>
-
-    <div class="texto-completo" id="trans1">
-      <p><strong>Entrevistador</strong>- Qual é o papel, neste momento, da biblioteca no agrupamento de escolas?</p>
-<p><strong>Professora Rosário Meireles</strong>-  A biblioteca acaba por representar um ponto central numa escola. Em qualquer escola, a biblioteca tem que ser ali uma espécie do coração da escola, na medida em que apoia todas as disciplinas e todos os grupos disciplinares do agrupamento e da escola. No fundo, é aquele local com recursos a todos os níveis que pode auxiliar qualquer tarefa  de qualquer professor e também de qualquer aluno.</p> 
- <p>Portanto, ao centro de recursos que é a biblioteca, recorrem todos os alunos para estudar, para fazer trabalhos, para ler, para até jogar damas e xadrez, nós conseguimos proporcionar esse momento de lazer numa hora de almoço e acaba por ser o local onde eles podem encontrar tudo aquilo que precisam, pelo menos tentamos que assim seja.</p>
-<p><strong>Entrevistador</strong>- Acabou, portanto, por me responder à segunda pergunta. A biblioteca é mais do que livros, então que recursos é que esta biblioteca dispõe aos alunos?</p>
-<p><strong>Professora Rosário</strong>- Ok. Nós dispomos de recursos físicos, os livros, os computadores, os jogos, temos uma série de material que também pode ajudar os alunos a desenvolverem trabalhos tipo uma guilhotina, uma plastificadora a quente, portanto, todo esse tipo de material, e material- cartolinas,marcadores- que auxiliam qualquer outro trabalho que eles tenham que fazer. Portanto, acaba por ser um centro de recursos a que eles podem recorrer fisicamente, mas em termos digitais também encontramos materiais. Nós temos um blog- o blog da biblioteca-  com vários separadores, com propostas de leitura, mas depois também temos a divulgação dos nossos projetos, a divulgação daquilo que se vai fazendo, das atividades que se vão dinamizando e ainda recursos como tutoriais: como fazer um trabalho escrito, como fazer uma bibliografia, como fazer um powerpoint, uma apresentação oral, que são recursos que os alunos podem utilizar a partir de casa, e para fazerem as suas atividades.  </p>
-<p><strong>Entrevistador</strong>-  Agora era um bocadinho mais para saber o feedback dos alunos, se considera que os alunos vêm mais à biblioteca à procura de livros ou apenas para apoio de estudo? </p>
-<p><strong>Professora Rosário</strong>- Nós estamos numa escola em que o lugar de lazer para os alunos- o polivalente- não tem as condições ideais e que ainda, apesar de já se terem feito algumas alterações, e que vieram beneficiar esse espaço, não têm aquelas condições ideais para os alunos poderem estar num momento de lazer, à vontade. E, muitas vezes, eles recorrem à biblioteca para poderem estar um bocadinho mais sossegados à hora do almoço, é um lugar um bocadinho mais acolhedor e é procurado para isso. Mas fora das horas do almoço nós temos os alunos que procuram a biblioteca para estudar, para trabalhar, vêm com professores que vêm dar aula na biblioteca e que vêm utilizar os computadores que estão disponíveis. Nós temos 15 computadores que os alunos podem utilizar, dá praticamente para uma turma ou até, às vezes, duas turmas que estão na biblioteca. Procuram talvez menos a biblioteca para momentos de grande leitura. Pronto, isso aí é um trabalho que tem que ser realizado.</p>
-<p><strong>Entrevistador</strong>- Para requisitar livros, falamos já do feedback dos miúdos…</p>
-<p><strong>Professora Rosário</strong>- Tem havido um decréscimo na requisição de livros, pronto, e o trabalho que tem que ser feito tem que ser o inverso, ou seja, a promoção dos livros.</p>
-<p><strong>Entrevistador</strong>- E a próxima pergunta era exatamente isso,  de que forma é que a biblioteca ajuda a criar hábitos de leitura aos alunos?</p>
-<p><strong>Professora Rosário</strong>-  Em primeiro lugar, temos feito várias candidaturas à rede de bibliotecas escolares para poder adquirir novidades, porque sabemos que os alunos, os jovens, ficam mais atraídos por tudo que é novo, tudo que é novidade. Até porque eles têm acesso aos títulos nos supermercados, têm acesso aos títulos numa FNAC, numa livraria que procurem, portanto eles veem as novidades e se encontrarem esses livros na biblioteca, claro que têm essa possibilidade de requisitar e de não comprar o livro e é sempre uma mais-valia. Portanto, a nossa preocupação é em fazer aquisições com novidades, que vão ao encontro dos seus interesses e depois proporcionar atividades de promoção da leitura. Dentro das salas de aula, propomos aos professores de português e às outras disciplinas que  realizem os “10 minutos a ler”. </p>
-<p><strong>Entrevistador</strong>- Aqui também fazem os 10 minutos a ler?</p>
-<p><strong>Professora Rosário</strong>- Sim.</p>
-<p><strong>Entrevistador</strong>- Excelente.</p>
-<p><strong>Professora Rosário</strong>- Mais no terceiro ciclo do que no ensino secundário, porque acaba por ser um bocadinho  apertado por causa do cumprimento dos programas e da urgência depois de preparar os alunos  para os exames nacionais. Mas, no segundo ciclo, terceiro ciclo, nós fazemos a atividade dos “10 minutos a ler” para promover precisamente o hábito de leitura e temos tido bons resultados. Eu acho que há alunos que redescobrem a leitura e o gosto pela leitura nesses 10 minutos a ler. Se é a totalidade? Não, não posso dizer isso. </p>
-<p><strong>Entrevistador</strong>-  Vem do Plano Nacional de Leitura?</p>
-<p><strong>Professora Rosário</strong>- Vem do Plano Nacional de Leitura.</p>
-<p><strong>Entrevistador</strong>- E o feedback é muito bom também dos alunos.</p>
-<p><strong>Professora Rosário</strong>- Sim, sim, sim</p>
-<p><strong>Entrevistador</strong>-  E eu também cheguei a apanhar isso no meu tempo com os 10 minutos a ler, mas na minha altura foi mais o “Diário de Anne Frank”, tentavam ler “Os Lusíadas”, mas era mais difícil sendo só os 10 minutos, e o feedback é que peçam para expandir o tempo, só que isso é praticamente impossível.</p>
-<p><strong>Professora Rosário</strong>- E como é que faziam a leitura? Liam um livro por turma?</p>
-<p><strong>Entrevistador</strong>-  Era por cada ano, cada ano tinham um livro e assim podiam trocar ideias e tentávamos ler sempre 10 minutos. Iamos tentando dividir pelos alunos da turma a ler,em voz alta, iam distribuindo  pelo horário, numa semana eram nas 8, numa semana eram na aula das 9, assim passava.</p>
-<p><strong>Professora Rosário</strong>-  Nós dinamizamos os 10 minutos a ler dando liberdade aos alunos para virem escolher o livro que querem ler, e eles fazem a leitura silenciosa. Mas os professores têm a liberdade também de escolherem a melhor metodologia, se acharem que é melhor um livro por turma e todos estarem a ler o mesmo livro, ok. Se quiserem fazer de outra forma, também podem fazer.</p>
-<p><strong>Entrevistador</strong>- Nós por acaso líamos em voz alta para a turma e resultava.</p>
-<p><strong>Professora Rosário</strong>- Resultava. </p>
-<p><strong>Entrevistador</strong>- Mas depende sempre de turma para turma, não é? </p>
-<p><strong>Professora Rosário</strong>- Sim, sim, sim.</p>
-<p><strong>Entrevistador</strong>-  A outra pergunta é se sente resistência ao pape,l e como é que trabalham essa questão do digital, porque hoje em dia há os ebooks…</p>
-<p><strong>Professora Rosário</strong>- Sim, eu acho que o papel está para ficar. O papel … pode ter havido dúvida se ele iria resistir ou não, mas eu penso que em termos de leitura, em termos de livro, o livro físico é sempre muito apetecido.  Temos os e-readers, temos os e-books e aqui nesta escola eu não sinto que os alunos leiam muito no digital. Poderá haver um ou outro e alguns podem fazer leituras não de livros em e-books, podem ler naquelas plataformas, e plataformas em que os livros são escritos. Qualquer pessoa pode escrever o seu livro e o seu capítulo.  Eu tenho algumas reservas relativamente a esse tipo de leitura e, normalmente, aconselho os meus alunos a terem algum cuidado.</p>
-<p><strong>Entrevistador</strong>- Claro, são livros que não têm qualquer controlo.</p>
-<p><strong>Professora Rosário</strong>- Exatamente, mas não sinto que os alunos... Nós temos alguns e-books adquiridos e temos tablets onde os alunos podem ler e-books, mas a preferência deles não vai para aí.</p>
-<p><strong>Entrevistador</strong>- Falou-me das atividades que são feitas na Feira do livro, que fazem aqui. </p>
-<p><strong>Professora Rosário</strong>- Sim.</p>
-<p><strong>Entrevistador</strong>- Já falaram também de vir cá pessoas para falar, fazer palestras…</p>
-<p><strong>Professora Rosário</strong>- Temos alguns escritores que têm vindo cá, alguns palestrantes relativamente a temáticas específicas. Temos teatro que vem cá, o teatro, e também fazemos visitas ao exterior, ao teatro, basicamente é isso que nós fazemos em termos de leitura, sim.</p>
-<p><strong>Entrevistador</strong>- Queria perguntar, que impacto é que têm essas atividades na motivação dos alunos a ler?</p>
-<p><strong>Professora Rosário</strong>- Eu dou o exemplo, por exemplo, do Gato Malhado e Andorinha Sinhá, que é representado pela Companhia ETC. Teatro, e eles vêm cá todos os anos, e os alunos ficam muito motivados  para a leitura do Gato Malhado, e se já leram o livro em aula, e estudaram o livro em aula, a consolidação da temática e das problemáticas do livro é sempre um ponto positivo. Para além de que eles dão uma leveza à obra, trazendo momentos cómicos e então isso aí chega muito bem ao aluno.</p>
-  <p>Portanto, acho que são dinâmicas que fazem um trabalho, que é lento, mas que são positivas, e não vamos deixar de os fazer por causa  disso.</p>
-<p><strong>Entrevistador</strong>- Depois, fugindo um bocadinho do ler, mas falando mais da área da biblioteca, queria perguntar que papel têm as tecnologias digitais no trabalho da biblioteca? Já falamos dos ebooks e dos tablets, apesar de não haver muita aderência a isso.</p>
-<p><strong>Professora Rosário</strong>-  Não, não. Mas em termos de tecnologias,é assim, nós, uma das outras vertentes do nosso  trabalho tem a ver com trabalhar literacias, e a literacia dos mídia é trabalhada, não é? E, ultimamente, o tópico é Inteligência Artificial. Aliás, este ano, o tema do Mês Internacional das Bibliotecas Escolares, em outubro, foi, um dos temas foi Inteligência  Artificial.</p>
-<p>Fizemos uma dinâmica interessante aqui porque, a partir da sensibilização para a importância de um uso adequado da Inteligência Artificial e de um uso crítico quanto à sua utilização. Também foi possível trabalhar com eles, fazer com eles uma atividade prática, em que, a partir de um texto, eles teriam que fazer, por exemplo, uma ilustração, e teriam que pedir à Inteligência Artificial para fazer a ilustração daquele texto. A tendência deles era, logo, pegar no texto completo e enviar para o chat GPT, ou para qualquer outro recurso, e sair de lá uma amálgama de coisas. Então, o trabalho foi perceberem que têm que ser muito objetivos no pedido que fazem à ferramenta da IA.</p>
-<p><strong>Entrevistador</strong>- Há que ter consciência que a inteligência artificial veio para ficar. Portanto, é importante saber como lidar com ela e não sendo apenas preguiçosos.</p>
-<p><strong>Professora Rosário</strong>- Sim, pois.</p>
-<p><strong>Entrevistador</strong>- Uma pergunta que, se quiser, pode não responder, mas é: quais é que são, atualmente, as maiores limitações da biblioteca? Seja a nível de espaço, de orçamento de livros, tecnologias,  têm alguma limitação? </p>
-<p><strong>Professora Rosário</strong>- Olha, eu posso dizer que este agrupamento tem uma direção que valoriza muito a biblioteca e que dá todas as condições para que a biblioteca possa fazer o seu trabalho e possa ter grande impacto junto dos alunos e dos professores, e de toda a comunidade que aqui existe, que envolve o agrupamento.</p>
-<p>E temos tido, ao longo destes 4 anos, um grande investimento, até da direção, na biblioteca. A grande limitação aqui nesta biblioteca é, talvez, a parte do espaço físico, que não compete diretamente à direção, porque o espaço, a infraestrutura, depende neste momento da Câmara Municipal, não é? E havia aqui obras a fazer, necessárias, que poderiam melhorar o conforto da biblioteca. Porque eu acho que ler numa biblioteca muito fria, trabalhar numa biblioteca muito fria, e quando falamos  em fria, tem a ver com as janelas, tem a ver com a umidade de algumas paredes. Enfim, infraestrutura, não é? Acho que essa, neste momento, é aquilo que mais me preocupa.</p>
-<p><strong>Entrevistador</strong> - Uma pergunta, que não fazia parte das perguntas:  mas vocês já pensaram em aceitar doações de livros por parte dos alunos, ou já o fazem?  </p>
-<p><strong>Professora Rosário</strong>- Nós aceitamos. De professores até que vão para a reforma e que fazem uma limpeza em casa. Ah, fazemos. </p>
-<p><strong>Entrevistador</strong>- Pois, eu ia dizer que isso seria interessante.</p>
-<p><strong>Professora Rosário</strong>- Sim, aceitamos, mas depois temos que fazer uma seleção. Porque a tendência é nós…</p>
-<p>Nós temos uma política de desbaste e as orientações que nós temos é que aquilo que não é adequado à nossa faixa etária, nós devemos fazer o desbaste. Imagina, enciclopédias temáticas, que os alunos já não procuram, os alunos já não consultam, está tudo na net, ou então a informação está desatualizada. Nós fazemos o desbaste. E para dar espaço precisamente às novidades. Imagina que alguém se quer desfazer uma enciclopédia, nós aí já não aceitamos, já não se adequa.</p>
-<p><strong>Entrevistador</strong>-  Aí já deveria ser, se calhar, para uma biblioteca municipal.</p>
-<p><strong>Professora Rosário</strong>-  As bibliotecas municipais já não aceitam.</p>
-<p><strong>Entrevistador</strong>- Já não? </p>
-<p><strong>Professora Rosário</strong>-  Não.</p>
-<p><strong>Entrevistador</strong>- Por acaso não tinha essa ideia.</p>
-<p><strong>Professora Rosário</strong>- Já não aceitam.</p>
-<p><strong>Entrevistador</strong>- A próxima pergunta é, que tipo de apoio é que recebem da Rede de Bibliotecas Escolares?</p>
-<p><strong>Professora Rosário</strong>-  Pronto. Nós temos uma coordenação concelhia, portanto temos um coordenador que nos orienta, que nos dá apoio, a rede biblioteca, e que nos dá orientações em termos de trabalho que nós temos que fazer. Portanto há uma rede nacional que é alimentada e que é...  , pronto, que tem as orientações e nós cumprimos. Todos os anos temos que fazer um plano anual de atividades que tenha uma estrutura específica, temos que responder a uma base de dados para que eles também orientem depois o seu trabalho a nível nacional, temos uma avaliação das nossas atividades no final do ano, e eles dão-nos esse apoio porque nos cedem instrumentos de trabalho. Depois há uma série de candidaturas que nos propõem, claro, nós temos que nos candidatar aos mesmos projetos, e a orientação dos nossos coordenadores é fundamental. Pronto, portanto, a Rede de Bibliotecas orienta, cede instrumentos, cede recursos que estão online, ao dispor de toda a gente, e os coordenadores concelhios, dão um apoio mais local a todos os níveis.</p>
-<p><strong>Entrevistador</strong>-  E o Plano Nacional de Leitura já não faz esse tipo de apoio direto, é mais aconselhar, digamos assim…</p>
-<p><strong>Professora Rosário</strong>-  O Plano Nacional de Leitura até aqui, porque acho que a estrutura mudou ou está a mudar, o Plano Nacional de Leitura também nos apoia em termos de recursos online, em termos de, a rede também, em termos de formação. Não tinha falado disso e acho que é importante, porque a Rede de Bibliotecas também proporciona formação aos professores bibliotecários e aos professores da equipa da biblioteca.</p>
- <p>O Plano Nacional de Leitura também o faz, só não tem é um...Também apresenta candidaturas, aliás, os “10 minutos a ler” começaram com uma candidatura, uma verba à escola para adquirir livros e depois implementar o projeto. Houve também outra que eram os clubes de leitura, também funcionou. E só não tem é um coordenador concelhio ou local que nos apoie diretamente, mas faz o trabalho de apoio. </p> 
-<p><strong>Entrevistador</strong>- E por fim, que mudanças é que considera que poderiam ser implementadas para fortalecer o papel da biblioteca escolar?</p>
-<p><strong>Professora Rosário</strong>- A biblioteca escolar tem um papel importante. Valorizar tudo aquilo que é feito na biblioteca é importante, os professores valorizarem também.</p>
-<p>Tenho uma dificuldade, há alguns professores que não conhecem o espólio da biblioteca e não sabem até o que é que nós temos dentro da biblioteca para o grupo disciplinar deles. Era importante aproximar os professores da biblioteca, para eles conhecerem bem o que é que nós temos, para depois também haver esta articulação.  O reforço de verbas em termos de aquisição de livros também é sempre importante, porque temos que estar sempre atuais em termos de fundo documental.</p>
-    </div>
-</div>
-
-<!-- Entrevista 2 -->
-<h3>Professora de português Inês Carolina Pinto (EBS Diogo Macedo) </h3>
-
-<div class="video-container">
-    <iframe 
-        src="https://www.youtube.com/embed/uz_F-Cpyo4E"
-        title="Entrevista Professora Inês Pinto"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen>
-    </iframe>
-</div>
-
-<div class="transcricao-container">
-    <div class="teaser">
-        <span class="continua">…</span>
-    </div>
-
-    <button class="btn-ver-mais" onclick="toggleTranscricao('trans2', this)">
-        Ver transcrição completa
-    </button>
-
-    <div class="texto-completo" id="trans2">
-     <p><strong>Entrevistador</strong>- Pronto, como eu disse, o tema é as bibliotecas escolares, e o tema principal é de que forma é que isso é uma porta de entrada para os alunos para a leitura. Óbvio que falar sobre a biblioteca não é sempre falar só sobre livros, porque é muito mais do que isso, mas de certa forma é aquilo que estou a centrar. Eu queria perceber o ponto de vista de uma professora de português, apesar de que professoras bibliotecárias também são, mas... </p>
-<p><strong>Professora de português Inês Pinto</strong>- Pois são.</p>
-<p><strong>Entrevistador</strong>- Mas, diretamente, eu queria perguntar como é que descreve o papel da biblioteca escolar no trabalho que desenvolve com os alunos na sala de aula. </p>
-<p><strong>Professora Inês</strong>- Ok, então... Eu vou falar especialmente desta biblioteca escolar, porque é a minha realidade. Suponho que, se calhar, noutras escolas as coisas possam funcionar de forma semelhante, ou noutras, diferente.</p>
-<p>Esta biblioteca escolar trabalha muito em parceria com os professores de português, e, portanto, dá-nos muito apoio: na seleção de livros, no aconselhamento que faz de algumas leituras e na promoção de leitura. Como é que nós trabalhamos com esta biblioteca e porque é que é importante para os professores de português? Se nós pegarmos nos alunos de terceiro ciclo, e agora, fazendo aqui um parênteses, nós estamos a ter um problema, que eu acho que vocês também sabem, que é genérico e atual, com dificuldades em promover a leitura.</p>
-<p>Os alunos, hoje em dia, estão com poucos hábitos de leitura. Eu não consigo identificar exatamente porquê, porque, se olharmos um bocadinho para o percurso dos alunos, nós vemos o grande investimento, por exemplo, no primeiro ciclo, os meninos leem muito, no segundo ciclo ainda leem muito, e depois há ali um momento em que parece que há uma quebra. Essa quebra na leitura não consigo identificar a razão.</p>
-<p>Claro que toda a gente hoje fala no apelo do visual e da imagem e dos filmes e dos telemóveis e dos jogos e tudo isso. Poderá ser só isso? Eu acho que não será só isso. E, portanto, aqui nesta biblioteca, terceiro ciclo, o trabalho é muito de parceria.</p>
-<p>Nós tentamos, eu acho que se já falaste com a professora Rosário, já te falou, em projetos, como o “10 Minutos a Ler”, e, portanto, nós tentamos promover isso em parceria com a biblioteca e também, quer no terceiro ciclo, quer depois no secundário, porque está inerente, no secundário, por exemplo, está inerente à avaliação da oralidade, a leitura de. E a leitura pode ser uma leitura de livro, pode ser uma leitura de um romance, de contos e, muitas das vezes, nós servimo-nos, digamos que, da biblioteca para, vai ter com a professora bibliotecária, ela vai te aconselhar e, portanto, temos aqui um apoio muito grande nesse sentido. Esta biblioteca dá-nos muito esse conforto de aconselhamento, de orientação, de promoção destas atividades e de outras que são fomentadas aqui. </p>
-<p>Se está a ser fácil, não, não está a ser um trabalho fácil, não é um trabalho nada fácil. Neste momento é muito difícil sensibilizar alguém para a leitura, mostrar porque é que é interessante e porque é que é bom ter um livro na mão e ler. Estão presentes aqui a ouvir alunos meus e sabem que desistem de ler e não há uma razão muito plausível porque é que isso está a acontecer.</p>
-<p><strong>Entrevistador</strong>- Nós estamos numa geração em que procura-se aquilo que é rápido e mais fácil de ler, muito também pelas tecnologias e falamos muito também no jornalismo, que hoje em dia lê-se a primeira parte da notícia e não se vê tudo e depois não se fica a saber as informações todas</p>
-<p><strong>Professora Inês</strong>-  Exatamente. Claro que também há, eu posso dizer assim, há, se calhar, no que está, por exemplo, no ensino secundário, as leituras que são propostas são mais aborrecidas. Podemos questionar isso, não é? Pronto, poderiam ser livros mais recentes, livros mais apelativos, em alguns tópicos eu diria que sim.</p>
-<p>Noutros, acho que lermos os chamados clássicos, nos ensinam muito para a vida. Era bom, era que nós tivéssemos essa disponibilidade de leitura, tem a ver com o tempo, tem a ver com a disponibilidade. Talvez o consumo do rápido? Talvez, porque ler um livro exige algum tempo, não é? Exige algum tempo.</p>
-<p><strong>Entrevistador</strong>- Estava a partilhar com outra professora já que eu, por acaso, quando comecei a ler clássicos foi por causa dos Maias. Para mim Os Maias fascinam-me porque fui obrigada a ler e quis ler, mas foi a partir daí, mas muita gente acaba por não ler Os Maias pelo tamanho.</p>
-<p><strong>Professora Inês</strong>- É o contrário, olham para o tamanho e dizem logo que tem muita página e, portanto, é melhor não ler.</p>
-<p><strong>Entrevistador</strong>- O início é massante.</p>
-<p><strong>Professora Inês</strong>- Sim, sim.</p>
-<p><strong>Entrevistador</strong>- Mas depois de avançar, aquilo é só história.</p>
-<p><strong>Professora Inês</strong>- Sim, e tem haver também com outra coisa que é a dificuldade da leitura. Uma pessoa que não lê, que não está habituada a ler, lê lento, lê devagar. Quem lê devagar se depara com um livro de 400 páginas, olha para aquilo e diz, eu nunca mais vou acabar isto e, portanto, desiste.</p>
-<p>E isso é uma coisa que não se está a conseguir quebrar, que é o ritmo da leitura e que facilitava depois a rápida leitura de um livro mais denso.  E está a ser complicado.</p>
-<p><strong>Entrevistador</strong>- A professora Rosário esteve aqui a mostrar aqui estes livros que são produzidos clássicos em banda desenhada.</p>
-<p><strong>Professora Inês</strong>- É uma boa entrada essa, é uma boa proposta, ir pelas bandas desenhadas e conseguir que se tenha ali algum conhecimento, pode ser o motivo para depois chegar ao outro mais denso. Em alguns casos, eu acho que eles ficam só por aqui e depois já não avançam. Não se está a conseguir dar o outro passo em frente, pelo menos neste momento. Também assim, é uma coisa genérica, mas nós temos louváveis exceções, não é? Há alunos que continuam, jovens que continuam a ler e continuam a ler muito. Portanto, tudo bem.</p>
-<p><strong>Entrevistador</strong>- Pois, uma das minhas perguntas seria essa, se considera que os alunos hoje em dia leem menos, comparado com gerações anteriores?</p>
-<p><strong>Professora Inês</strong>-  Com gerações anteriores, definitivamente, mas os tempos são outros. Portanto, o tempo que se tinha de disponibilidade para ler um livro, hoje não é exatamente o mesmo. Acho que conseguem ler coisas diferentes, também porque há hoje uma diversidade enorme de livros. Posso questionar da qualidade da leitura hoje, porque se nós olharmos para uma livraria, há muito livro.</p>
- <p> Mas também há muitos livros em que a temática é praticamente a mesma. Portanto, aquilo é ler sempre o mesmo, não se está a avançar,  não se está a ser exigente de, agora vou ler outra coisa que seja um bocadinho mais complexa, um bocadinho mais difícil. Portanto, mais ou menos.</p>
-  <p>Eu ainda não fui ver, acho curioso, há uns tempos li qualquer coisa de uma jovem que tinha, eu não sei se era no TikTok, se era no Instagram, tinha um programa em que aconselhava livros, que ela própria lia, e que isso que estava a potenciar a leitura em alguns jovens. Coisas como essas são bem-vindas, não é? Pronto, independentemente de nós questionarmos se é uma leitura mais exigente, menos exigente, mas coisas como essas são interessantes de seguir.</p>
-<p><strong>Entrevistador</strong>- E há cada vez mais pessoas que abrem contas no TikTok e falam sobre os livros, mas acaba por ser muito, tal como disse, baseado sempre na mesma coisa, livros são o mesmo tema dentro do mesmo círculo.</p>
-<p><strong>Professora Inês</strong>- Sim, e aí ficamos outra vez um bocadinho fechados, não é? Porque o que é positivo na escola  é que há uma exigência que é gradual e, portanto, vai-se mostrando diferentes coisas num grau diferenciado. E a escola deveria estar a servir, e a biblioteca deveria estar a servir, como janelas que se abrissem, não é? Por exemplo, eu não sei se a professora falou, mas se nós compararmos com há alguns anos atrás, a biblioteca tinha um pedido de empréstimos até considerável, portanto, os miúdos levavam livros para casa para ler. Vinha agora às férias de Natal, por exemplo, e levavam para ler. Por exemplo, a feira do livro, fizemos a feira do livro este ano, e foi um choque para nós porque nunca tivemos tão poucas vendas. E era sempre um momento em que os alunos aproveitavam para comprar um livrinho, porque vinha o Natal, porque pediam ao pai e à mãe e adquiriam. E este ano isso não aconteceu, portanto, efetivamente há aqui uma diminuição daquilo que era o normal, digamos assim.</p>
-<p><strong>Entrevistador</strong>-  Em que medida é que a biblioteca ajuda, ou não, mas obvio que ajuda, a despertar o gosto pela leitura nas turmas?</p>
-<p><strong>Professora Inês</strong>-  Eu acho que pode ajudar, e nesta biblioteca ajuda. Ajuda quando proporciona e organiza. Por exemplo, a professora Rosário tinha, deve ter ainda, organizado o que nós chamamos de kits de leitura, portanto, são caixinhas com um livro, imagino que nós estamos a trabalhar, O Gato Malhado e Andorinha Sinhá, e há 20 e tal livrinhos daqueles que vão para a turma para a leitura e trabalho e etc, etc, etc. Isso ajuda porque não há uma disponibilidade que está ali, não é preciso investimento por parte do aluno, de comprar o livro, comprar a fotocópia. Há um material ali, físico, há um livro que pode ser trabalhado. A biblioteca ajuda quando contacta, por exemplo, escritores das editoras e os traz à escola para conversar com os alunos, uma turma, duas turmas, falar da sua experiência é sempre importante. Pode despertar depois o gosto por ir ler o livro do autor, ou o contrário, conhecer o autor que escreveu o livro que se leu.</p>
-  <p>A biblioteca é importante quando dinamiza sessões de leitura, por exemplo, ou, por exemplo, em parceria com o Departamento, e aqui até o Departamento de Línguas, concursos de leitura expressiva. E é feito em português, em inglês e em francês, e, portanto, há aqui uma atividade que é potenciadora através do concurso, da leitura, para que os alunos ganhem aqui alguma motivação. Portanto, sim, a biblioteca é sempre um lugar que pode estar a potenciar essa motivação. É preciso é que os alunos entrem na biblioteca e tenham alguma disponibilidade para. E alguma curiosidade, eu acho que neste momento falta um bocadinho de curiosidade aos alunos de: “Deixa-me ver o que é aquele livro, sobre o que é que é. Deixa-me folhear, ver o que é que é”. Já quase não se encontram miúdos que cheguem aqui que se encostem às estantes: “Vou só folhear para ver o que é que é”. Falta essa curiosidade.</p>
-<p><strong>Entrevistador</strong>-  Eu ia perguntar qual é o feedback que têm, porque tem contato com alunos diariamente, se considera que eles procuram mais a biblioteca por leituras obrigatórias, por lazer, ou mesmo por vir procurar livros e ir a explorar?</p>
-<p><strong>Professora Inês</strong>- A explorar não vêm, não. Eu acho que neste momento eles vêm quando têm leituras obrigatórias e vêm buscar, requisitar os livros, e por lazer, sim. Mas o lazer que não está diretamente relacionado com a leitura de livros. Vêm porque querem os jogos de tabuleiro ou qualquer outra atividade, mas não relacionada com a leitura. Não, não.</p>
-
-
-
-
-<p><strong>Entrevistador</strong>- Falou dos “10 minutos a ler”, há mais alguma atividade que haja em conjunto com a biblioteca e os professores de sala de aula?</p>
-
-<p><strong>Professora Inês</strong>- Eu neste momento, se não estou em erro, acho que não. Acho que é só os “10 minutos a ler”. Temos um bom feedback, embora pudesse estar melhor.
-  Os “10 minutos a ler”, o feedback é bom, mas lá está, mesmo aí há coisas a acertar. Porquê? Os “10 minutos a ler” partem da proposta da aula de português, mas não é limitativa a todas as outras. Ou seja, seria interessante que nas diferentes disciplinas se fizessem os tais “10 minutos a ler”.
-Só se faz na aula de português neste momento. Mas seria interessante que isso fosse feito transversalmente a todas as disciplinas. Em algumas turmas isso é mais viável do que noutras.
- O que é que se notou, talvez nos últimos anos, nos tempos mais recentes? Lá está, alguns garotos, como é que eu vou dizer, arranjaram forma de ultrapassar a obrigatoriedade da leitura. Aqueles 10 minutos a ler não é uma leitura obrigatória, suponho que é uma leitura recreativa. Portanto, eu escolhi um livro e durante 10 minutos, durante um tempo, eu vou ler aquele livro. Alguns deles estão a fazer de conta que estão a ler, passam os 10 minutos e efetivamente a leitura não está a ser feita. Portanto, há um qualquer impedimento relativamente ao tempo de ler. Não sei se não conseguem estar 10 minutos concentrados num livrinho que estão à frente. Até foi o livrinho que eles escolheram, à partida, uma história que querem. Nós até damos oportunidade, porque nos pode acontecer, nós podemos comprar um livro, começar a ler e dizer não gosto disto. Pronto, de mudar de livro e mesmo assim alguns continuam a fazer de conta que estão a fazer a leitura.  Portanto, falta aqui um gosto. Poderá ser também, eu não digo que não, ainda não chegou o tempo certo para aquela pessoa, para ter aquela paciência. Talvez, não sei. Mas os 10 minutos, globalmente, faz sentido.</p>
-<p><strong>Entrevistador</strong>-  Por acaso, eu estava a falar com a outra professora que na minha escola funcionava do género: uma semana era às 8 da manhã, na aula das 8, na outra era na aula das 9. Mas nós não escolhiamos um livro.
- Era a biblioteca que escolhia um livro para cada ano.  E nós tínhamos que ler e ler em voz alta à turma e assim. Por acaso, chamou muito a atenção. A minha turma, na altura, gostava imenso. Às vezes, achávamos que não íamos gostar do livro porque era um livro que provavelmente nunca iríamos pegar. </p>
-<p><strong>Professora Inês</strong>-  Exatamente.</p>
-
-<p><strong>Entrevistador</strong>-  E, por acaso, funcionavam bem assim também. Foi assim uma sugestão que demos. Nós nunca pudemos ser nós a escolher, por acaso. E assim, sendo os anos todos iguais, eu podia ir ter com outras turmas do mesmo ano e falar sobre o livro e  ver a velocidade de ler de cada turma.</p>
-<p><strong>Professora Inês</strong>- Sim, exatamente. Interessante.  Mas, por exemplo, esta recusa do ler, mesmo no secundário, quando a apresentação final, no final do ano, é um livro. E nós temos detectado as fraudes, não é? Porque não há leitura, há a pesquisa do resumo do livro e vamos fazer a apresentação. Por que é que se faz isto? </p>
-<p><strong>Entrevistador</strong>- É verdade, há turmas que ainda aproveitam e leem mesmo o livro para falar sobre ele.</p>
-<p><strong>Professora Inês</strong>- Sim, porque, não sei, há outras coisas que... Está bem, é um tempo livre. Não vou estar sentada a ler um livro. Ok, mas estão sentadas a ver... Pronto, são as imagens. A ver o telemóvel. É um sinal dos tempos, mas é um sinal um bocadinho preocupante porque depois quer se queira quer não acaba por se refletir nos conhecimentos que os próprios alunos têm, e estamos a falar de pessoas. Já não estou a falar de alunos, estou a falar de pessoas, enquanto cidadão.
- Porque temos pessoas menos informadas, temos pessoas menos capazes de fazer um discurso coerente,  de ouvirem um discurso e conseguirem descodificar o que é que está a ser dito e o que não está a ser dito, com um vocabulário reduzidíssimo neste momento, portanto, há toda um... competências que se estão a perder.</p>
-<p><strong>Entrevistador</strong>- E isso é preocupante.</p>
-<p><strong>Professora Inês</strong>- E isso é preocupante, não é? Estás na área da comunicação, sabes a importância que isso tem, no jornalismo a importância que isto tem, enquanto escritor da notícia ou da reportagem, mas também enquanto espectador e ouvinte. Saber descodificar a mensagem e aquilo que está a ser dito, o que é que... ter espírito crítico e perceber aquilo que nos dizem. As pessoas estão a perder, os alunos estão a perder essas competências e estamos a falar de pessoas, de cidadãos formados que podem alicerçar, ou não, uma sociedade.</p>
-<p><strong>Entrevistador</strong>-  E fazem muitas piadas nas redes sociais de que as licenciaturas estão a ser feitas pelo ChatGPT, portanto, isso não deixa de ser real.</p>
-<p><strong>Professora Inês</strong>- Exatamente.</p>
-<p><strong>Entrevistador</strong>- Uma das perguntas ia ser se achavam que a tecnologia está a mudar a forma como os alunos se relacionam com os textos literários. </p>
-<p><strong>Professora Inês</strong>-  Está. Está a mudar. Poderia não afetar tanto, mas está. Está a afetar. Há cada vez mais uma separação grande entre aquilo que é o texto literário e depois a tecnologia. Podiam usar a tecnologia em benefício de uma maior aprendizagem ou até de uma técnica mais facilitadora, mas também não o estão a fazer. O uso do ChatGPT, por exemplo, não vale a pena nós dizermos que não está aí porque está, mas poderiam, lá está, ser curiosos ao ponto de dizer: “Como é que eu posso usar a ferramenta em meu benefício, poupança de tempo, base de trabalho ou qualquer uma das coisas”, e não, vão buscar a ferramenta para apresentar o trabalho, não é? Não dizem: “Ok, eu quero fazer isto assim, sugestões para”.
-E depois dizem, ok, tenho aqui uma hipótese, agora eu vou escolher a minha e vou fazer, e vou fazer a minha. Não, querem o trabalho feito. Portanto, nesse sentido, é prejudicial. Mas também aqui qb, porque eu aqui também, se calhar, não posso responsabilizá-los a 100%  que é, ninguém está a ser ensinado. Portanto, alguém já se deteve e disse: “Ok, então vamos aprender a fazer, vamos aprender a mexer na ferramenta em vosso benefício”, se calhar, também precisamos de fazer esse caminho. Se calhar nós escola, também precisamos de fazer esse caminho.</p>
-<p><strong>Entrevistador</strong>- Estão a tentar apostar nisso, em como ajudar, em como usar a inteligência artificial, mas de forma favorecedora, digamos assim.</p>
-<p><strong>Professora Inês</strong>- Claro.</p>
-<p><strong>Entrevistador</strong>- Porque não podemos ignorar que existe, vai sempre ficar cá.</p>
-<p><strong>Professora Inês</strong>- Não, não, não vale a pena. Aliás, se nós conversarmos com pessoas que estão noutra área, uma empresa ou alguém que trabalha numa empresa, já está a usar, já está a usar há algum tempo, mas está a usar nesse sentido, que é: como é que eu posso usar isto para me facilitar o meu trabalho, não é para eu deixar de fazer. Não é para eu deixar de pensar, nem é para eu deixar de ter espírito crítico em relação àquilo que me compete fazer, e como é que isto me pode ajudar. Mas se calhar aí eu reconheço que se calhar a escola tem que pensar, é: “Então isto está aqui, vamos ensinar-lhes a fazer isto”.</p>
-<p><strong>Entrevistador</strong>-  Outra pergunta, que eu acho muito curioso, mas toda a gente me responde e eu não fico à espera da resposta. É se sente resistência ao papel, ao livro em papel, dado que hoje em dia há os e-books, há os e-readers já sem luminosidade, muito levezinhos e assim. </p>
-<p><strong>Professora Inês</strong>- Eu acho, isto deve ser geracional, porque não. Porque o livro é o livro, já tentei fazer a leitura digital, não é a mesma, para mim. Para mim não é a mesma coisa. É ter o livro, é passar a folha, é pegar naquilo e levar para qualquer lado, pronto, meto na carteira e vai, e acompanha-nos. E, portanto, não, eu ainda tenho muita ligação ao papel.</p>
-<p><strong>Entrevistador</strong>-  E quais são as maiores dificuldades que sente ao motivar os alunos a ler por iniciativa própria? </p>
-<p><strong>Professora Inês</strong>- Não, a Sofia (aluna que estava a assistir à entrevista) estava aqui e a Sofia podia até responder. Mas tenho muita dificuldade porque não consigo ou acho que não estou a conseguir ser suficientemente convincente para os levar a ler o livro. 
- Eu estou com o 12º ano. A leitura obrigatória é o “Memorial do convento”. À partida, os meus alunos disseram que não.
-À partida, foi assim, ponto assente. Porque ninguém leu. Eu tinha  recomendado durante as férias, é mais tempo, portanto, se têm mais dificuldade de ler, tinham ali o tempo das férias, não há leitura feita, portanto, há ali uma recusa de dizer, pronto, eu não vou ler aquilo. Eu acho que nem eles próprios sabem responder o porquê. Curiosamente, aqui há uns tempos eu fiz a apresentação do livro, de uma forma muito sumária, e alguns vieram buscar à biblioteca.
- Portanto, vão ler tudo? Não vão ler tudo. Naquele momento, pelo menos, resultou. Tentei que eles percebessem que aquilo que ali estava não era uma coisa impossível de ler, era uma história, porque na contracapa do Memorial o “E era uma vez”, então era uma vez um rei, era uma vez um homem, e era uma vez uma mulher, era uma vez. E li uma ou outra passagem do Memorial. Claro que fui buscar aquelas um bocadinho mais interessantes, e naquela aula resultou. Elas e eles vieram buscar. Mas é difícil de os motivar e é difícil de os convencer.  Eu acho que eles ficam muito assustados quando veem as tais 400 páginas à frente.</p>
-<p><strong>Entrevistador</strong>- Uma técnica que tem resultado muito, que a outra professora falou  foi o teatro, o teatro chamar a atenção para a história em si, e depois terem curiosidade de pegar no livro e explorar a história.</p>
-<p><strong>Professora Inês</strong>- Sim, às vezes resulta, outras vezes é ao contrário. Muitas vezes perguntam, há filme? E portanto, se há filme, nós vemos o filme, não lemos o livro. Por exemplo, esta opção diz-nos o quê? É mais fácil? É mais fácil. Perde-se menos tempo? Perde-se menos tempo. Mas é muito por aí neste momento.
-Há filme para ver? Então eu vou ver o filme, não vou ler o livro. O ano passado, por acaso, tive uma aluna, numa apresentação oral, e efetivamente ela tinha lido o livro- já não me recordo agora qual era- porque ela chegou ao fim e disse: “há também o filme. E depois disse: “e eu gostei mais do livro”.</p>
-<p><strong>Entrevistador</strong>-  E normalmente é assim.</p>
-<p><strong>Professora Inês</strong>- E normalmente é assim, não é? E ela, mas ela teve aí já ali uma outra capacidade da leitura e de fazer a comparação. Portanto é alguém que pode estar a caminhar no bom caminho.  Não é?</p>
-<p><strong>Entrevistador</strong>-  Que importância é que atribui à biblioteca escolar no desenvolvimento de leitores competentes e críticos?</p>
-<p><strong>Professora Inês</strong>-  Toda. Toda a importância. Conforme nós temos visto e temos estado a falar. Ela é importante. Esta principalmente, eu acho que sim, porque a professora Rosária é dinâmica nas atividades que faz. Ela, não sei se ela falou, este ano não tem, mas ela tinha um clube de leitura que estava muito ligado à biblioteca e que deu origem, por exemplo, também a dramatizações. E, portanto, toda essa dinâmica era muito muito importante. No caso, eu tive um ex-aluno que começou, era muito tímido e começou com ela no clube de leitura e depois na dramatização, e aquilo disparou completamente.
-Portanto, sim, as bibliotecas são muito importantes naquilo que é a competência leitora, principalmente quando são dinâmicas nas atividades que propõem. É preciso chamar um bocadinho os alunos. Esta biblioteca está muito bem. Esta biblioteca está muito bem equipada em termos de livros.
- Há uma preocupação constante em ir buscar temas recentes. Está bem equipada no que diz respeito a livros de consulta de todas as áreas. Está bem equipada em termos de apoios tecnológicos e digital. Portanto, sim, há uma forte aposta. Nós, no caso do português, nós estamos sempre muito, não é dependentes, mas sempre em cooperação  com a biblioteca. Há, às vezes, comemorações de dias importantes. Nós arranjamos sempre atividades. Agora fizemos a comemoração dos 20 anos de Camões, por exemplo. Portanto, trabalhamos português com a biblioteca, exposição, feitura de livros, sempre por aí.</p>
-<p><strong>Entrevistador</strong>-  E agora, a pergunta final, que é o tema do meu trabalho. Se considera que a biblioteca continua a ser uma porta de leitura para os alunos? Biblioteca escolar.</p>
-<p><strong>Professora Inês</strong>- A biblioteca escolar tem que ser uma porta de abertura para os alunos.
-É fundamental. E é fundamental ainda mais, primeiro porque é uma escola e, portanto, é fundamental que a biblioteca funcione como essa porta de leitura e de leituras possíveis. E é fundamental também dependendo, eu agora ia dizer, um bocadinho dependendo do sítio onde as escolas estão e onde as bibliotecas se encaixam.
- Se nós pensarmos nesta biblioteca, ela é fundamental para esta escola e é fundamental para esta comunidade. Nós estamos numa comunidade que tem alguns problemas de algumas famílias do foro económico e, portanto, é fundamental que a biblioteca esteja bem equipada e esteja a proporcionar o contacto com os livros aos seus alunos, no caso dos empréstimos. E portanto, lhes faculta o acesso a leituras que de outro modo eles, porventura, não poderiam fazer. Portanto, a biblioteca tem que continuar a ser um polo central na educação e na leitura.</p>
-
-
-
-    </div>
-</div>
-
-<!-- Entrevista 3 -->
-<h3>Professor bibliotecário Augusto Oliveira (EBS Canelas)</h3>
-
-<div class="video-container">
-    <iframe 
-        src="https://www.youtube.com/embed/OVqgxKlNaWU"
-        title="Entrevista Professor biliotecário Augusto Oliveira (EBS Canelas)"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen>
-    </iframe>
-</div>
-
-<div class="transcricao-container">
-    <div class="teaser">
-        <span class="continua">…</span>
-    </div>
-
-    <button class="btn-ver-mais" onclick="toggleTranscricao('trans3', this)">
-        Ver transcrição completa
-    </button>
-
-    <div class="texto-completo" id="trans3">
-      <p> <strong>Entrevistador</strong>-  A pergunta principal, que é o tema do trabalho, é: qual é, neste momento, o papel da biblioteca escolar no agrupamento de escolas?</p>
- <p><strong>Professor bibliotecário Augusto Oliveira</strong>- Neste agrupamento em concreto. Bom, a biblioteca escolar, nós temos duas bibliotecas escolares num agrupamento. Temos esta que é na escola sede, que é a escola que tem alunos desde o pré-escolar até ao 12º ano, e depois temos outra biblioteca numa escola de 1º ciclo, que é a biblioteca da Escola de Alquebre, que é em Perosinho. Isto foi só para contextualizar. Bom, relativamente ao papel desta biblioteca, eu creio que a biblioteca, como vocês já tiveram a oportunidade de ver, tive agora aqui uma turma, acompanhada do professor, tem um papel muito ativo e muito próximo da componente curricular. Ou seja, é um espaço que oferece recursos de qualidade, permite um trabalho autónomo aos alunos, um trabalho de pesquisa, de preparação de tarefas, de realização de tarefas, portanto, é um espaço complementar da sala de aula. E, esta relação entre a sala de aula e a biblioteca é de importância porque, um dos papéis da biblioteca atual, e eu acho que esta também cumpre de alguma forma essa função, é o apoio ao currículo, portanto, na melhoria das aprendizagens, no apoio, quer em termos de equipamentos, quer em termos de suporte, na orientação do estudo, do apoio aos alunos, também é um papel muito importante. Depois, a biblioteca tem ainda algumas atividades de reforço da leitura, nomeadamente o projeto “10 minutos a ler”, que é um projeto diariamente, como diz o nome, portanto, os alunos leem 10 minutos, numa escala que é feita semanal e depois que se prolonga até o final do ano, em que vai alterando  o tempo letivo em que os alunos leem, de modo a que todos os dias possam ler em aulas diferentes e, portanto, permitir um contato muito próximo com a leitura e com o livro. Naturalmente, de modo a que os alunos não precisem de estar na biblioteca para ler. Possam ler também na sala de aula, naquilo que é a importância da leitura, que é a vários níveis, nomeadamente na formação pessoal, portanto, um aluno, isto é inequívoco, ninguém consegue ser um bom cidadão se não tiver uma competência leitora muito desenvolvida. Nós sabemos que na comunicação, no pensamento, tudo é leitura, não estou a falar só apenas do suporte livro, estou a falar das relações humanas, da natureza. Portanto, nós fazemos uma leitura instantânea de tudo. A escrita e a leitura são fundamentais nesse processo e nós sabemos que um cidadão para ser ativo, esclarecido, participativo, tem que ter essa competência leitora porque ela é transversal a outras competências, por isso é que eu a bocado brincava com o Sr. Engenheiro, que também tinha, naturalmente, a ter também esse reflexo da leitura na sua formação, como qualquer pessoa.</p>
-<p><strong>Entrevistador</strong>- Considera que os alunos aderem a essas atividades ou que impacto é que considera que isso tem nos alunos?  </p>
-<p><strong>Professor Augusto</strong>-Muito bem, mas está a falar concretamente da feira do livro ou das atividades em geral?</p>
-<p><strong>Entrevistador</strong>-  Nas atividades em geral, falamos dos “10 minutos a ler”.</p>
-<p><strong>Professor Augusto</strong>-  Sim, em relação aos “10 minutos a ler”, nós temos mesmo, portanto, inquéritos que aplicamos aos alunos no final do ano letivo transato e os resultados foram muito favoráveis no sentido em que os alunos responderam que gostavam imenso da atividade. Na sua maioria, digamos, 95% por aí disseram que gostavam da atividade e que até gostavam que a atividade passasse a ter mais tempo, 10 minutos não era necessário. Nesse aspeto, claro que temos aqui público diferente neste contexto, ou seja, uma coisa são os alunos que vêm à biblioteca requisitar livros e ainda temos muitos, portanto, a requisição de livros é muito importante. E, depois temos outro aspeto que é a leitura dos “10 minutos a ler”, que acaba por ser obrigatório, porque é uma atividade aprovada no concelho Pedagógico e determinante. Portanto, e os alunos aí podem trazer o livro de casa ou podem requisitar na biblioteca. Portanto, temos aqui duas situações distintas, mas que se completam uma na outra, mas o feedback aí é muito positivo.</p>
-<p> Quanto às restantes atividades, depois vai dependendo um pouco, nós procuramos na sua preparação que elas sejam mais atrativas e que vão ao encontro do interesse dos alunos, que eles se sintam motivados, que gostem de estar presentes na biblioteca. Nós fazemos por isso e, portanto, normalmente selecionamos atividades que criem dinâmicas ativas em que os alunos possam participar, possam pintar, possam escrever, possam pesquisar. Portanto, atividades também com uma componente digital associada à leitura, pois nós sabemos que o impacto da leitura e do digital, particularmente, nos dias de hoje, não direi que é decisivo, mas é muito importante e, portanto, nós tentamos. Por exemplo, o tema deste ano para o mês internacional das bibliotecas escolares, que foi agora em outubro, era as histórias e a inteligência artificial, portanto, e o impacto, ou seja, ao futuro das histórias. Nós conhecemos as histórias naquele contexto de serem lidas através do livro e, portanto, e agora o futuro, como é que vai ser? A inteligência artificial, vai ser ela a criar as histórias, pronto, e é evidente que isso depois cria uma reflexão muito interessante e os alunos participam também nesse contexto.</p>
-<p><strong>Entrevistador</strong>-  Mas considera que há uma diferença entre a faixa etária dos alunos que procuram livros?</p>
-<p><strong>Professor Augusto</strong>- Ah, sim, sim, sim.</p>
-<p><strong>Entrevistador</strong>- Normalmente os mais novos ou os maiores?</p>
-<p><strong>Professor Augusto</strong>- Não, o público, mas isto é um, portanto, inicialmente, quando eu comecei a trabalhar na área das bibliotecas, pensava que tinha a ver com o contexto da escola onde eu estava, mas não. Os estudos internacionais apresentam como um dado objetivo é que os alunos mais novos, meramente entre os 6 e os 12 anos, são aqueles que procuram mais a biblioteca, no sentido de requisitarem livros. Depois, no terceiro ciclo, os alunos entre os 12, 15, 16 fazem uma pausa. Portanto, nesse processo tem a ver, naturalmente, com os desenvolvimentos que os jovens têm nesse período, e depois muitos deles voltam já, digamos, quando estão no secundário.  Mas é evidente que o peso, o grande número de leitores, são os, aqui nesta escola, particularmente, são os do quinto ano. Portanto, eles quando entram aqui, vêm de outras escolas, quando chegam a esta e vêm a biblioteca, ficam maravilhados, e estão naquela fase do deslumbre da leitura, e muito bem, devem continuar pela vida fora. Mas estamos, em termos globais, muito satisfeitos com o número de leitores que temos, muito satisfeitos mesmo.</p>
-<p><strong>Entrevistador</strong>-  E considera que a pandemia teve algum impacto nos alunos virem procurar livros físicos, principalmente?</p>
-<p><strong>Professor Augusto</strong>-  Confesso que não temos, assim, dados muito... Não, eu creio que não alterou grande coisa. Por um lado, eu acho que o digital, porque nós depois, durante o período da pandemia, também apresentamos propostas de leitura digital, mas eu creio que, apesar daquilo que se diz, do fascínio dos ecrãs, a leitura continua em suporte de livro, continua ainda a preponderar, e ainda bem.   Portanto, não houve um esquecimento da biblioteca, bem pelo contrário, continuamos a ter muitos alunos na biblioteca, não só na leitura, noutras atividades, temos também xadrez, atividades de jogos, temos vários jogos também, portanto, há aqui um núcleo de alunos que procuram a biblioteca para ler revistas. Também agora já temos o digital, temos mesmo o Netflix, portanto, já temos uma oferta muito diversificada e, claro, naturalmente também o apoio à orientação na leitura, na seleção de livros e no apoio à pesquisa e a outras orientações que os alunos, por vezes, precisam quando vêm aqui à biblioteca para se situarem e poderem fazer um estudo autónomo.</p>
-<p><strong>Entrevistador</strong>- E que tipo de apoio recebem da Rede de Bibliotecas Escolares?</p>
-<p><strong>Professor Augusto</strong>- O apoio da rede é… Aliás, é muito importante chamar a atenção a este pequeno aspecto: esta escola é uma escola Erasmus. Portanto, nós temos a acreditação Erasmus e, portanto, temos tido contato com muitas escolas de países diferentes. O que é que nós verificamos? Que o nosso país, na área da organização das bibliotecas escolares, é dos mais devolvidos a nível europeu. Portanto, são poucos países que têm uma estrutura, ou que têm um Ministério de Educação que tem uma estrutura, como a Rede das Bibliotecas Escolares, que, portanto, orienta, dá apoio, financia as bibliotecas. Portanto, nós temos tido um apoio extraordinário, não porque seja especial, mas abrem candidaturas e a escola tem feito essas candidaturas. Portanto, temos tido candidaturas diversas, desde projetos ligados à inclusão, leitura inclusiva, desde projetos, como este último que denunciamos, o BePlan para ações emergentes, portanto, digamos que há uma emergência na biblioteca. Queremos aplicar uma atividade, mas não temos fundos financeiros, portanto, fazemos uma candidatura, apresentamos os objetivos.</p>
-  <p>Para além disso, temos também um apoio, e foi o caso de ontem,  tivemos aqui uma reunião dos professores bibliotecários do Porto. Tem um coordenador, neste caso, concelhio, que faz a ponte  entre a Rede das Bibliotecas Escolares e as escolas, portanto, articula o trabalho, orienta e dão também suporte. Portanto, eu penso que, comparativamente aos outros países, nós temos uma estrutura magnífica no nosso país, que tem mesmo surpreendido os colegas, porque muitos deles, alguns não têm biblioteca, outros têm biblioteca, mas as bibliotecas funcionam tipo um arquivo de livros, ou um espaço partilhado com outras estruturas. Portanto, não têm esta autonomia, nem esta vida que as bibliotecas em Portugal têm. Portanto, nós temos que reconhecer também, ainda bem, o trabalho tem sido muito bem feito, ao longo de muitos anos. Portanto, isto não é de agora, estou a falar há cerca de 20 e poucos anos  que a rede existe e, portanto, tem dado um apoio não só financeiro, mas também presencial das bibliotecas. </p>
- <p> Portanto, ou seja, para resumir e concluir, os professores bibliotecários são muito apoiados.  E pelas direções também, isso é muito importante, porque quando há uma estrutura como a Rede das Bibliotecas, que está presente, que está ativa, isso também transfere para as direções escolares que a biblioteca deve ser uma aposta. E, portanto, isso também depois faz com que as estruturas de orientação e gestão escolar também reconheçam o valor da biblioteca, a sua importância, e também colaborem a vários níveis. Isso tem existido. </p>
-<p><strong>Entrevistador</strong>-  E o Plano Nacional de Leitura também dá algum tipo de apoio?</p>
-<p><strong>Professor Augusto</strong>- Sim, o Plano Nacional de Leitura é uma estrutura que funciona um pouco separada da Rede das Bibliotecas e que tem também alguns programas de apoio, nomeadamente os “10 minutos a ler” é do Plano Nacional de Leitura. Tem alguns programas de apoio também para as bibliotecas mais focado na leitura, sim, basicamente é só na leitura. Enquanto a rede tem outros domínios, nomeadamente as literacias digital, literacia de informação, portanto, questões transversais à sociedade- como as fake news, a inteligência artificial, os direitos do autor. Portanto, aspectos que já saem um bocadinho fora da leitura daquilo que é o trabalho. O Plano Nacional de Leitura é muito focado nos livros, e ainda bem.</p>
-<p><strong>Entrevistador</strong>- E, por fim, que mudanças é que considera como professor bibliotecário que deveriam ser implementadas no futuro para ajudar a fortalecer o impacto da biblioteca? </p>
-<p><strong>Professor Augusto</strong>- Bom, em primeiro lugar, eu acho que, neste caso, aqui em Canelas, nós não podemos queixar, temos uma biblioteca, eu sou suspeito, mas temos uma biblioteca magnífica, também foste cá estudante,  pois estudaste aqui nesta escola, claro. Portanto, conheces aqui o espaço, e o espaço é mesmo muito bom. Portanto, são poucas as escolas a nível, pelo menos aqui a nível do Porto e Gaia, são poucas as que têm uma biblioteca desta dimensão. É muito bem apetrechada, com equipamento moderno, digital. Portanto, temos tido também um grande investimento ao nível do fundo,  do nosso fundo documental. Portanto, tudo isto resulta depois de vários apoios que vieram da rede das candidaturas que nós fizemos para as grandes bibliotecas, claro, também do apoio financeiro desta e da anterior direção da escola. E também do facto da biblioteca estar muito ligada aos programas Erasmus, e ter também, por via dos seus projetos. Nós aqui na biblioteca tivemos dois projetos Erasmus, também temos tido algum retorno financeiro, digamos, em investimento para dar desenvolvimento aos projetos com alunos nesta temática das bibliotecas. Portanto, ou seja, no nosso caso é manter aquilo que temos, deixar espaço para nós podermos também ter projetos e ações e atividades que temos tido a vários níveis. Portanto, ter essa permissão e depois em termos, digamos, mais abrangentes, há muitas bibliotecas que estão, que ainda não têm as condições necessárias. Portanto, nós somos um caso especial, como outras, não somos os únicos, mas há muitas escolas ainda no país que não têm biblioteca, ou então se têm uma biblioteca têm condições ainda muito precárias, quer em termos de equipamento informático, ou mesmo em termos de fundo documental, e do próprio espaço muitas vezes é reduzido. Por outro lado, nós aqui, como disse no início da entrevista, temos outra escola, outra biblioteca no nosso agrupamento- tem 10 escolas do primeiro ciclo e pré-escolar-,  e neste momento estamos a fazer uma candidatura para a abertura de uma outra biblioteca, noutra escola também do agrupamento. Portanto, digamos, estamos em vias, se tudo correr bem, no próximo ano letivo já termos três bibliotecas a funcionar. Permite um trabalho articulado e uma resposta a todos, digamos, não será direta a todas as bibliotecas, porque a biblioteca está centrada numa escola, mas vai permitir que outro professor bibliotecário possa reforçar esse trabalho que já existe e que tem sido muito positivo, feito pelos professores bibliotecários no primeiro ciclo e que é um contributo muito grande para dar, sobretudo para a promoção da leitura e também de outras literacias. Portanto, a perspectiva é positiva. E ainda bem.</p>
-    </div>
-</div>
-
-
-<script>
-    // Scroll suave para menu
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+        views.forEach(v => {
+          if (v.id === target) {
+            v.classList.add("active");
+          } else {
+            v.classList.remove("active");
+          }
         });
+      });
     });
-
-    
-</script>
-
+  </script>
 </body>
 </html>
 
-
-        <div class="aside-card">
-          <div class="aside-title">Como os alunos usam a biblioteca?</div>
-          <ul class="highlight-list">
-            <li>Estudo e uso de computadores.</li>
-            <li>Jogos de tabuleiro e lazer.</li>
-            <li>Leituras obrigatórias do currículo.</li>
-            <li>Exploração espontânea de livros: cada vez mais rara.</li>
-          </ul>
-        </div>
-      </aside>
-    </div>
-  </section>
-
-  <!-- VOZES -->
-  <section id="vozes">
-    <div class="section-kicker">Vozes da reportagem</div>
-    <h2 class="section-title">O que dizem quem vive a biblioteca...</h2>
-
-    <div class="voices">
-      <div class="voice-card">
-        <div class="voice-role">Maria do Rosário Meireles</div>
-        <div class="voice-text">
-          “ Procuram talvez menos a biblioteca para momentos de grande leitura. Pronto, isso aí é um trabalho que tem que ser realizado.Tem havido um decréscimo na requisição de livros, pronto, e o trabalho que tem que ser feito tem que ser o inverso, ou seja, a promoção dos livros.” 
-        </div>
-        <div class="voice-meta">
-          Professora biliotecária, Escola Básica e Secundária Diogo Macedo
-        </div>
-      </div>
-
-      <div class="voice-card">
-        <div class="voice-role">Inês Carolina Pinto</div>
-        <div class="voice-text">
-          “Alguns deles estão a fazer de conta que estão a ler, passam os 10 minutos e efetivamente a leitura não está a ser feita. Não sei se não conseguem estar 10 minutos concentrados num livrinho que estão à frente. Até foi o livrinho que eles escolheram, à partida, uma história que querem.”
-        </div>
-        <div class="voice-meta">
-          Professora de português, Escola Básica e Secundária Diogo Macedo
-        </div>
-      </div>
-
-      <div class="voice-card">
-        <div class="voice-role">Augusto Oliveira</div>
-        <div class="voice-text">
-          “ O nosso país, na área da organização das bibliotecas escolares, é dos mais devolvidos a nível europeu. Portanto, são poucos países que têm uma estrutura, ou que têm um Ministério de Educação que tem uma estrutura, como a Rede das Bibliotecas Escolares.”
-        </div>
-        <div class="voice-meta">
-           Professor biliotecário, Escola Básica e Secundária de Canelas (Experiências em mobilidades Erasmus)
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SOBRE -->
-  <section id="sobre">
-    <div class="section-kicker">Sobre o projeto</div>
-    <h2 class="section-title">Ficha técnica da reportagem</h2>
-
-    <div class="grid" style="grid-template-columns: 1.5fr 1.3fr;">
-      <article>
-        <p><strong>Tema:</strong> Bibliotecas escolares em Portugal: ainda são a porta de entrada para a leitura?</p>
-        <p><strong>Objetivo:</strong> Investigar o papel atual das bibliotecas escolares no incentivo à leitura, analisando impacto, estratégias e desafios.</p>
-        <p><strong>Ângulo de abordagem:</strong> Mostrar como as bibliotecas escolares contribuem (ou não) para a formação de hábitos de leitura em diferentes gerações.</p>
-      </article>
-
-      <div>
-        <div class="aside-card">
-          <div class="aside-title">Fontes</div>
-          <ul class="highlight-list">
-            <li>Professor bibliotecário, Augusto Oliveiro· EBS de Canelas.</li>
-            <li>Professora bibliotecária, Maria do Rosário Meireles· EBS Diogo Macedo.</li>
-            <li>Professora de Português, Inês Carolina Pinto · EBS Diogo Macedo.</li>
-            <li>Coordenadora da RBE, Manuela Pargana Silva.</li>
-          </ul>
-        </div>
-
-        <div class="aside-card">
-          <div class="aside-title">Fontes documentais</div>
-          <ul class="highlight-list">
-            <li>https://iave.pt/provas-e-exames/provas-e-exames/diagnostico-da-fluencia-leitora/ </li>
-          
-            <li>https://www.rbe.mec.pt/np4/TodosJuntosPodemosLer.html </li>
-            <li>https://www.rbe.mec.pt/np4/candidatura-bePLAN.html </li>
-            <li>https://www.pnl2027.gov.pt/np4/lereescreveradistancia_10minutos.html</li>
-            <li>https://bibliotecaesdiogomacedo.blogspot.com/</li>
-            <li>https://agrcanelas.edu.pt/blogs/biblioteca/</li>
-            <li>https://www.pordata.pt/pt/estatisticas/cultura-e-desporto/livros-e-bibliotecas/rede-de-bibliotecas-escolares-por-subsistema</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-</main>
-
-<footer>
-  <div class="inner">
-    <div>© 2026 · Gramática da comunicação III: Entrevista e reportagem.</div>
-    <div>Desenvolvido por Mafalda Alves.</div>
-  </div>
-</footer>
-
-<script>
-function toggleTranscricao(id, btn) {
-    const texto = document.getElementById(id);
-
-    if (texto.style.display === "block") {
-        texto.style.display = "none";
-        btn.textContent = "Ver transcrição completa";
-    } else {
-        texto.style.display = "block";
-        btn.textContent = "Ocultar transcrição";
-    }
-}
-</script>
-
-
-
-
-</body>
-</html>
 
 
