@@ -285,7 +285,7 @@
   overflow: hidden;
   border: 1px solid rgba(207, 167, 130, 0.4);
   background: rgba(18, 9, 5, 0.9);
-  max-height: 360px;
+aspect-ratio: 4 / 5;
 }
 
 .photo-wrapper img {
@@ -397,6 +397,36 @@
   object-fit: cover;
   border-radius: 12px;
   border: 1px solid rgba(207, 167, 130, 0.35);
+}
+.gallery-scroll {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-top: 8px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.work-card {
+  min-width: 280px;
+  max-width: 280px;
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(207, 167, 130, 0.28);
+  background: rgba(18, 9, 5, 0.96);
+}
+
+.work-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+
+.work-info {
+  padding: 12px;
 }
 
   </style>
@@ -545,7 +575,7 @@
           <div class="panel">
   <h2>Retrato de Stefan Sagmeister</h2>
   <div class="photo-wrapper">
-    <img src="https://segd.org/news/stefan-sagmeister-2024-segd-fellow/" alt="Stefan Sagmeister">
+    <img src="stefan-sagmeister.jpg" alt="Stefan Sagmeister">
   </div>
 </div>
 
@@ -587,14 +617,43 @@
             </p>
           </div>
           <div class="panel">
+<div class="panel full-width">
   <h2>Obras de referência</h2>
-  <div class="gallery">
-    <img src="obra1.jpg" alt="Obra 1 de Stefan Sagmeister">
-    <img src="obra2.jpg" alt="Obra 2 de Stefan Sagmeister">
-    <img src="obra3.jpg" alt="Obra 3 de Stefan Sagmeister">
-    <img src="obra4.jpg" alt="Obra 4 de Stefan Sagmeister">
+  <div class="gallery-scroll">
+    <article class="work-card">
+      <img src="obra1.jpg" alt="Obra 1">
+      <div class="work-info">
+        <h3>AIGA Detroit</h3>
+        <p>Texto gravado no corpo, uma das imagens mais icónicas e provocadoras de Sagmeister.</p>
+      </div>
+    </article>
+
+    <article class="work-card">
+      <img src="obra2.jpg" alt="Obra 2">
+      <div class="work-info">
+        <h3>The Happy Show</h3>
+        <p>Exposição sobre felicidade, cheia de linguagem tipográfica e objetos físicos.</p>
+      </div>
+    </article>
+
+    <article class="work-card">
+      <img src="obra3.jpg" alt="Obra 3">
+      <div class="work-info">
+        <h3>Album/Poster Study</h3>
+        <p>Projeto com composição experimental e forte presença de texto.</p>
+      </div>
+    </article>
+
+    <article class="work-card">
+      <img src="obra4.jpg" alt="Obra 4">
+      <div class="work-info">
+        <h3>Installation</h3>
+        <p>Uso do espaço físico como extensão do design gráfico.</p>
+      </div>
+    </article>
   </div>
 </div>
+
 
         </div>
       </section>
