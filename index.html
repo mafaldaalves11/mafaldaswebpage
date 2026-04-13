@@ -429,6 +429,38 @@ aspect-ratio: 4 / 5;
   padding: 12px;
 }
 
+
+   .other-block {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.other-image {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(207, 167, 130, 0.35);
+  background: rgba(18, 9, 5, 0.9);
+  aspect-ratio: 4 / 5;
+}
+
+.other-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.other-text p + p {
+  margin-top: 12px;
+}
+
+@media (max-width: 800px) {
+  .other-block {
+    grid-template-columns: 1fr;
+  }
+}
   </style>
 </head>
 <body>
@@ -729,16 +761,31 @@ A marca visual deste projeto foi pensada como uma extensão da identidade do pr�
 
         <section id="outros" class="view">
   <p class="tagline">Outros</p>
-  <h1>
-    Em <span class="highlight">construção</span>
-  </h1>
-
   <div class="panel">
-    <h2></h2>
-    <p>
-      Novidades em breve.
-    </p>
+  <h2>O cor-de-rosa</h2>
+  <div class="other-block">
+    <div class="other-image">
+      <img src="rosa.jpg" alt="Imagem sobre a cor cor-de-rosa">
+    </div>
+    <div class="other-text">
+      <p>
+        A minha cor preferida é o rosa. Esta escolha está relacionada tanto com o meu gosto pessoal como com o significado que esta cor pode transmitir na comunicação visual. A cor é um elemento fundamental da linguagem visual, pois tem a capacidade de chamar a atenção, provocar emoções e transmitir mensagens ao observador.
+      </p>
+      <p>
+        De acordo com o professor Francisco Mesquita, a cor impressiona, expressa e constrói significados, sendo um elemento essencial na forma como interpretamos imagens e mensagens visuais. O rosa resulta da mistura do vermelho com o branco, o que lhe dá características próprias. Enquanto o vermelho é geralmente associado à intensidade, energia ou paixão, o rosa apresenta uma versão mais suave dessas emoções.
+      </p>
+      <p>
+        Por isso, esta cor costuma estar ligada a ideias de delicadeza, carinho, sensibilidade e tranquilidade. Na comunicação visual, o rosa pode ser utilizado para transmitir proximidade emocional e criar uma sensação de conforto ou simpatia. Outra razão pela qual gosto da cor rosa é o seu impacto visual. Apesar de ser considerada uma cor suave, o rosa consegue destacar-se facilmente em diferentes composições gráficas.
+      </p>
+      <p>
+        Quando combinado com cores neutras, como o branco ou o cinzento, cria um contraste agradável e equilibrado, tornando o design mais atrativo e harmonioso. Além disso, o rosa está muitas vezes presente na natureza, por exemplo em flores como as rosas ou as cerejeiras, o que reforça a ideia de beleza e leveza associada a esta cor.
+      </p>
+      <p>
+        Para mim, o rosa transmite uma sensação de alegria, criatividade e calma. Por essa razão, considero que é uma cor que representa bem emoções positivas e que pode comunicar mensagens visuais de forma clara e agradável.
+      </p>
+    </div>
   </div>
+</div>
 </section>
 
     </main>
