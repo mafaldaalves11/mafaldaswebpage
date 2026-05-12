@@ -461,6 +461,45 @@ aspect-ratio: 4 / 5;
     grid-template-columns: 1fr;
   }
 }
+
+   .wide-panel {
+  margin-top: 2rem;
+}
+
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.process-card {
+  background: var(--panel);
+  border-radius: 20px;
+  padding: 1.5rem;
+}
+
+.process-card h2 {
+  margin-bottom: 1rem;
+}
+
+.process-card p {
+  margin-top: 1rem;
+  line-height: 1.6;
+}
+
+.process-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 14px;
+}
+
+@media (max-width: 768px) {
+  .process-grid {
+    grid-template-columns: 1fr;
+  }
+}
   </style>
 </head>
 <body>
@@ -699,7 +738,7 @@ aspect-ratio: 4 / 5;
       </section>
 
       <!-- SAGMEISTER -->
-             <section id="marca-visual" class="view">
+         <section id="marca-visual" class="view">
   <p class="tagline">Marca Visual</p>
   <h1>
     A minha <span class="highlight">identidade gráfica</span>.
@@ -712,21 +751,126 @@ aspect-ratio: 4 / 5;
         <img src="logo-mafalda.svg" alt="Logótipo da marca visual">
       </div>
     </div>
-           
+
     <div class="panel">
       <h2>Conceito</h2>
       <p>
-A marca visual deste projeto foi pensada como uma extensão da identidade do próprio site, procurando traduzir em linguagem gráfica a sua dimensão mais experimental, artística e pessoal. O logótipo parte de uma construção simples, mas com intenção expressiva, valorizando a relação entre forma, cor e linha como elementos fundamentais da comunicação visual.  
+        A marca visual deste projeto foi pensada como uma extensão da identidade do próprio site,
+        procurando traduzir em linguagem gráfica a sua dimensão mais experimental, artística e pessoal.
+        O logótipo parte de uma construção simples, mas com intenção expressiva, valorizando a relação
+        entre forma, cor e linha como elementos fundamentais da comunicação visual.
       </p>
       <p>
-        A paleta cromática foi escolhida para reforçar o caráter criativo e menos convencional do projeto, criando contraste, energia e alguma subtileza visual. As cores não funcionam apenas como decoração, mas como parte ativa da composição, ajudando a construir uma atmosfera coerente com o universo visual apresentado no site.
+        A paleta cromática foi escolhida para reforçar o caráter criativo e menos convencional do projeto,
+        criando contraste, energia e subtileza visual. As cores não funcionam apenas como decoração,
+        mas como parte ativa da composição.
       </p>
-     <p>
-      As linhas desenhadas no logótipo têm também um papel estruturante, organizando a forma e conduzindo o olhar de forma equilibrada. Ao mesmo tempo, acrescentam ritmo, movimento e uma certa liberdade visual, que dialoga com a ideia de um projeto em construção contínua.
-     </p>
-     <p>
-      Assim, esta marca visual procura representar uma identidade gráfica simples, mas expressiva, em sintonia com o restante site: um espaço de experimentação, descoberta e interpretação visual.
-     </p>
+      <p>
+        As linhas desenhadas no logótipo organizam a forma e conduzem o olhar de forma equilibrada.
+        Ao mesmo tempo, acrescentam ritmo, movimento e liberdade visual.
+      </p>
+    </div>
+  </div>
+
+  <div class="panel wide-panel">
+    <h2>Pesquisa de inspiração</h2>
+    <p>
+      A pesquisa de inspiração partiu de referências ligadas ao universo artístico, visual e editorial.
+      Foram observadas formas associadas à pintura, ao desenho, ao arquivo e à organização de imagens.
+      A ideia principal foi criar uma marca que não parecesse demasiado rígida ou institucional, mas sim
+      próxima de um espaço criativo, experimental e pessoal.
+    </p>
+    <p>
+      As referências ajudaram a perceber que o logótipo deveria ter uma linguagem simples, com linhas
+      leves e orgânicas, mantendo uma ligação direta ao gesto artístico e ao processo manual.
+    </p>
+  </div>
+
+  <div class="panel wide-panel">
+    <h2>Escolha do nome</h2>
+    <p>
+      O nome <strong>Visual Archive of the Odds Things</strong> foi escolhido por representar a ideia
+      de um arquivo visual composto por elementos estranhos, inesperados e fora do comum. A palavra
+      “archive” remete para organização, memória e coleção, enquanto “visual” reforça a dimensão gráfica
+      e imagética do projeto.
+    </p>
+    <p>
+      A expressão “odds things” acrescenta um lado mais experimental e curioso, sugerindo que o projeto
+      reúne imagens, ideias e objetos visuais que não seguem uma lógica totalmente convencional.
+    </p>
+  </div>
+
+  <div class="process-grid">
+    <div class="process-card">
+      <h2>Rascunho</h2>
+      <div class="photo-wrapper">
+        <img src="rascunho.jpg" alt="Rascunhos iniciais da marca visual">
+      </div>
+      <p>
+        O rascunho corresponde à fase inicial do processo criativo. Nesta etapa foram testadas várias
+        ideias através de desenhos manuais, explorando símbolos ligados à pintura, ao gesto artístico
+        e ao arquivo visual. Esta fase permitiu experimentar livremente antes de escolher a direção final.
+      </p>
+    </div>
+
+    <div class="process-card">
+      <h2>Vetor escolhido</h2>
+      <div class="photo-wrapper">
+        <img src="vetor-escolhido.svg" alt="Vetor escolhido da marca visual">
+      </div>
+      <p>
+        O vetor escolhido resulta da simplificação e limpeza do rascunho inicial. A versão final apresenta
+        linhas mais controladas, uma composição equilibrada e melhor legibilidade, tornando o logótipo
+        mais funcional para diferentes suportes digitais e impressos.
+      </p>
+    </div>
+
+    <div class="process-card">
+      <h2>Tipografia</h2>
+      <div class="photo-wrapper">
+        <img src="tipografia.png" alt="Estudo tipográfico da marca visual">
+      </div>
+      <p>
+        O estudo tipográfico apresenta cinco possibilidades diferentes para o nome da marca. Esta análise
+        permitiu perceber como cada tipo de letra altera a personalidade visual do projeto, desde uma
+        abordagem mais elegante até uma linguagem mais moderna ou experimental.
+      </p>
+    </div>
+
+    <div class="process-card">
+      <h2>Cor</h2>
+      <div class="photo-wrapper">
+        <img src="cores.png" alt="Estudo de cor do logótipo">
+      </div>
+      <p>
+        O estudo de cor mostra diferentes versões cromáticas aplicadas apenas ao logótipo. O objetivo foi
+        testar como a identidade visual se comporta com cores distintas, mantendo a mesma forma e avaliando
+        o impacto visual de cada opção.
+      </p>
+    </div>
+
+    <div class="process-card">
+      <h2>Contraste</h2>
+      <div class="photo-wrapper">
+        <img src="contraste.png" alt="Estudo de contraste do logótipo">
+      </div>
+      <p>
+        O estudo de contraste explora diferentes relações entre o logótipo e o fundo. Estas versões ajudam
+        a perceber a legibilidade, a força visual e a adaptação da marca em contextos claros, escuros,
+        neutros ou mais expressivos.
+      </p>
+    </div>
+
+    <div class="process-card">
+      <h2>Sintaxe visual</h2>
+      <div class="photo-wrapper">
+        <img src="sintaxe-visual.png" alt="Desenho da sintaxe visual da marca">
+      </div>
+      <p>
+        A sintaxe visual apresenta diferentes formas de combinar o símbolo com o nome da marca. Foram
+        testadas composições verticais, horizontais e circulares, de modo a perceber qual a relação mais
+        equilibrada entre imagem, texto, escala e hierarquia visual.
+      </p>
     </div>
   </div>
 </section>
