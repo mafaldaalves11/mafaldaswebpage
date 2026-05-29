@@ -590,6 +590,35 @@ aspect-ratio: 4 / 5;
 img {
   cursor: pointer;
 }
+
+   .manual-scroll {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding-top: 12px;
+
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.manual-page {
+  flex: 0 0 auto;
+  width: 340px;
+
+  border-radius: 18px;
+  overflow: hidden;
+
+  border: 1px solid rgba(207, 167, 130, 0.3);
+
+  scroll-snap-align: start;
+
+  background: rgba(18, 9, 5, 0.96);
+}
+
+.manual-page img {
+  width: 100%;
+  display: block;
+}
   </style>
 </head>
 <body>
@@ -963,6 +992,27 @@ img {
       </p>
     </div>
   </div>
+          <div class="panel wide-panel">
+  <h2>Manual Gráfico</h2>
+
+  <div class="manual-scroll">
+
+    <div class="manual-page">
+      <img src="manual1.jpg" alt="">
+    </div>
+
+    <div class="manual-page">
+      <img src="manual2.jpg" alt="">
+    </div>
+
+    <div class="manual-page">
+      <img src="manual3.jpg" alt="">
+    </div>
+
+    <!-- continua até às 11 -->
+
+  </div>
+</div>
 </section>
       <!-- CONTACTO -->
       <section id="cartaz" class="view">
