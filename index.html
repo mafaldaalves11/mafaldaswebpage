@@ -649,6 +649,19 @@ img {
     grid-template-columns: 1fr;
   }
 }
+
+   .cv-image {
+  max-width: 450px;
+  margin: 20px auto;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(207, 167, 130, 0.35);
+}
+
+.cv-image img {
+  width: 100%;
+  display: block;
+}
   </style>
 </head>
 <body>
@@ -1324,7 +1337,7 @@ img {
          <div class="panel wide-panel">
   <h2>Rascunho</h2>
 
-  <div class="photo-wrapper">
+  <div class="cv-image">
     <img src="draft-cv.jpg" alt="Draft do currículo">
   </div>
 
@@ -1336,7 +1349,7 @@ img {
          <div class="panel wide-panel">
   <h2>Resultado final</h2>
 
-  <div class="photo-wrapper">
+  <div class="cv-image">
     <img src="cv-final.jpg" alt="Currículo infográfico final">
   </div>
 
