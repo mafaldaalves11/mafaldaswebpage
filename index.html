@@ -622,6 +622,33 @@ img {
   width: 100%;
   display: block;
 }
+
+   .inspiration-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.inspiration-item {
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(207, 167, 130, 0.35);
+  background: rgba(18, 9, 5, 0.9);
+}
+
+.inspiration-item img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .inspiration-gallery {
+    grid-template-columns: 1fr;
+  }
+}
   </style>
 </head>
 <body>
@@ -906,6 +933,22 @@ img {
       As referências ajudaram a perceber que o logótipo deveria ter uma linguagem simples, com linhas
       leves e orgânicas, mantendo uma ligação direta ao gesto artístico e ao processo manual.
     </p>
+
+   <div class="inspiration-gallery">
+
+  <div class="inspiration-item">
+    <img src="inspiracao1.jpg" alt="Inspiração 1">
+  </div>
+
+  <div class="inspiration-item">
+    <img src="inspiracao2.jpg" alt="Inspiração 2">
+  </div>
+
+  <div class="inspiration-item">
+    <img src="inspiracao3.jpg" alt="Inspiração 3">
+  </div>
+
+</div>
   </div>
 
   <div class="panel wide-panel">
